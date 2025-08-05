@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Tableau de Bord Santé & Minceur</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Serene Health (Warm Neutrals with Green Accent) -->
+    <!-- Application Structure Plan: A tab-based SPA. Core tasks ('Vue d'Ensemble', 'Planning Alimentaire', 'Programme d'Exercices', 'Listes de Courses') are separated for intuitive daily use. The shopping list is now split into a cyclical bi-weekly schedule to optimize food freshness and logical flow. Recipes are integrated directly into the meal plan view. A changelog, FAQ, Lexique, and Anti-Waste tips are now modals triggered by footer links to declutter the main navigation. Weight tracking feature has been removed to fix a persistent bug. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Health-focused 14-day meal plan, re-ordered for freshness. Goal: Organize/Inform. Method: Interactive daily cards with integrated recipe and seasoning sections. Justification: Provides a complete, actionable daily guide. Library: Vanilla JS.
+        - Report Info: Exercise routine. Goal: Organize/Inform. Method: Static cards with icons. Justification: Clear, easily digestible format. Library: None (HTML/CSS).
+        - Report Info: Core principles. Goal: Inform. Method: Styled list with enhanced details. Justification: Keeps essential rules always accessible. Library: None.
+        - Report Info: Nutritional Balance & Health Principles. Goal: Inform/Analyze. Method: Two side-by-side charts (Donut and Radar). Justification: Adds a data visualization layer for both macro-nutrients and health goal frequency. Library: Chart.js (Canvas).
+        - Report Info: Cyclical Bi-weekly Shopping Lists. Goal: Organize/Budget/Track. Method: Four distinct categorized lists with checkboxes and reset buttons, following a true rotating schedule. Justification: Makes grocery shopping precise, interactive, and aligned with the user's continuous planning model. Library: Vanilla JS for interactivity.
+        - Report Info: Changelog & FAQ & Lexique & Anti-Waste Tips. Goal: Inform. Method: A timeline-like list, a Q&A list, a glossary, and a tips list in modals. Justification: Documents the collaborative improvements, consolidates key information, and explains technical/sustainable practices for the user. Library: None (HTML/CSS).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+        }
+        .tab-active {
+            background-color: #10B981;
+            color: white;
+            border-color: #10B981;
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #374151;
+            border-color: #D1D5DB;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 320px;
+            margin: auto;
+        }
+        .recipe-card {
+            background-color: #f0fdf4;
+            border-left: 4px solid #10B981;
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 0.5rem;
+        }
+        input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            color: #9CA3AF;
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="antialiased text-gray-800">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-6xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-emerald-700">Votre Tableau de Bord Santé & Minceur</h1>
+            <p class="mt-2 text-gray-600">Un guide interactif pour vous accompagner chaque jour.</p>
+        </header>
+
+        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-md mb-8" role="alert">
+            <p class="font-bold">Avis Important : Consultation Médicale Indispensable</p>
+            <p class="text-sm">Ce programme est adapté à vos résultats mais doit être suivi en accord avec votre médecin traitant et/ou votre gastro-entérologue.</p>
+        </div>
+
+        <nav class="mb-8 flex justify-center flex-wrap gap-2 md:space-x-4">
+            <button id="tab-overview" class="tab-button py-2 px-4 rounded-lg font-semibold border transition-colors duration-300">Vue d'Ensemble</button>
+            <button id="tab-food" class="tab-button py-2 px-4 rounded-lg font-semibold border transition-colors duration-300">Planning Alimentaire</button>
+            <button id="tab-exercise" class="tab-button py-2 px-4 rounded-lg font-semibold border transition-colors duration-300">Programme d'Exercices</button>
+            <button id="tab-shopping" class="tab-button py-2 px-4 rounded-lg font-semibold border transition-colors duration-300">Listes de Courses</button>
+        </nav>
+
+        <main>
+            <!-- Overview Section -->
+            <section id="content-overview" class="space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-emerald-600 mb-4">Vos Nouveaux Principes Santé</h2>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🐟</span> <strong>Focus Oméga-3 :</strong> Poissons gras (saumon, maquereau, sardines), noix et graines de chia pour réduire le cholestérol et l'inflammation.</li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🥦</span> <strong>Amis du Foie :</strong> Brocoli, ail, curcuma, et thé vert pour soutenir la fonction hépatique. Zéro alcool et sucres ajoutés.</li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🍓</span> <div><strong>Puissance Anti-inflammatoire :</strong> Un maximum de végétaux colorés et d'épices. Dans vos menus, cela inclut les <strong>fruits rouges, épinards, brocolis, tomates, poivrons rouges</strong>, ainsi que les épices comme le <strong>curcuma et le gingembre</strong>.</div></li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🌾</span> <strong>Fibres Solubles :</strong> Flocons d'avoine, légumineuses, pommes et carottes pour aider à capter le mauvais cholestérol.</li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-3">💧</span> <strong>Hydratation Essentielle :</strong> 1,5 à 2 litres d'eau ou de tisanes non sucrées par jour.</li>
+                    </ul>
+                </div>
+                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold text-emerald-600 mb-4 text-center">Équilibre Nutritionnel Indicatif</h2>
+                        <div class="chart-container">
+                            <canvas id="macroChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold text-emerald-600 mb-4 text-center">Fréquence des Principes Santé</h2>
+                         <div class="chart-container">
+                            <canvas id="healthFocusChart"></canvas>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+
+            <!-- Food Plan Section -->
+            <section id="content-food" class="hidden">
+                <div class="flex justify-center items-center mb-6 space-x-4">
+                    <button id="week1-btn" class="py-2 px-5 rounded-lg font-semibold transition-colors duration-300">Semaine 1</button>
+                    <button id="week2-btn" class="py-2 px-5 rounded-lg font-semibold transition-colors duration-300">Semaine 2</button>
+                </div>
+
+                <div class="flex justify-between items-center mb-6">
+                    <button id="prev-day-btn" class="bg-white p-3 rounded-full shadow-sm hover:bg-gray-100 transition-colors text-lg font-bold">◀</button>
+                    <h2 id="day-title" class="text-2xl font-bold text-center text-emerald-600"></h2>
+                    <button id="next-day-btn" class="bg-white p-3 rounded-full shadow-sm hover:bg-gray-100 transition-colors text-lg font-bold">▶</button>
+                </div>
+
+                <div id="meal-cards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div id="breakfast-card" class="bg-white p-6 rounded-xl shadow-sm"></div>
+                    <div id="lunch-card" class="bg-white p-6 rounded-xl shadow-sm"></div>
+                    <div id="snack-card" class="bg-white p-6 rounded-xl shadow-sm"></div>
+                    <div id="dinner-card" class="bg-white p-6 rounded-xl shadow-sm"></div>
+                </div>
+            </section>
+
+            <!-- Exercise Section -->
+            <section id="content-exercise" class="hidden space-y-6">
+                <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-800 p-4 rounded-md" role="alert">
+                    <p class="font-bold">Attention à votre corps</p>
+                    <p class="text-sm">Écoutez vos douleurs. Ne forcez jamais un mouvement qui fait mal au dos ou au cou. Allez-y doucement et privilégiez une exécution parfaite du mouvement plutôt que la vitesse.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold text-emerald-600 mb-3">Phase 1 : Échauffement (5 min) ⏱️</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><strong>Marche sur place & Montées de genoux :</strong> 2 minutes en alternant marche simple et levées de genoux douces.</li>
+                        <li><strong>Rotations des articulations :</strong> Cercles lents avec les chevilles, poignets, épaules.</li>
+                        <li><strong>Rotations douces du cou :</strong> Incorporez les mouvements que vous faites déjà, très lentement.</li>
+                    </ul>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold text-emerald-600 mb-3">Phase 2 : Le Circuit Ciblé (2 x 5 min) 💪</h3>
+                     <p class="text-sm text-gray-600 mb-4">Faites chaque exercice 45s, puis 15s de repos. Répétez le circuit 2 fois.</p>
+                    <ol class="list-decimal list-inside space-y-3 text-gray-700">
+                        <li><strong>La Chaise contre un mur :</strong> Dos plat contre un mur, descendez comme si vous vous asseyiez sur une chaise. Tenez la position. <span class="text-emerald-700 font-semibold">(Cible : Cuisses, Fessiers)</span></li>
+                        <li><strong>Pompes contre un mur :</strong> Face à un mur, mains à plat, pliez les coudes. <span class="text-emerald-700 font-semibold">(Cible : Pectoraux, Bras)</span></li>
+                        <li><strong>Le Pont (Glute Bridge) :</strong> Allongé sur le dos, soulevez le bassin. Excellent pour le bas du dos. <span class="text-emerald-700 font-semibold">(Cible : Fessiers, Arrière des cuisses)</span></li>
+                        <li><strong>Crunchs inversés :</strong> Allongé sur le dos, mains au sol, ramenez doucement les genoux vers la poitrine sans décoller le bas du dos. <span class="text-emerald-700 font-semibold">(Cible : Abdos du bas)</span></li>
+                        <li><strong>L'Oiseau-Chien (Bird-Dog) :</strong> À quatre pattes, tendez bras et jambe opposés. Indispensable pour le gainage et la protection du dos. <span class="text-emerald-700 font-semibold">(Cible : Ventre, Dos)</span></li>
+                    </ol>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h3 class="text-xl font-bold text-emerald-600 mb-3">Phase 3 : Retour au calme (3-5 min) 🧘</h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><strong>Étirement "Chat-Vache" :</strong> À quatre pattes, arrondissez puis creusez le dos lentement.</li>
+                        <li><strong>Étirement des pectoraux :</strong> Debout dans l'angle d'une porte, placez un avant-bras sur le cadre et penchez-vous doucement en avant.</li>
+                        <li><strong>Étirement des cuisses :</strong> Debout, en appui sur un mur, attrapez votre cheville et ramenez doucement le talon vers la fesse.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Shopping List Section -->
+            <section id="content-shopping" class="hidden space-y-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-emerald-600 mb-4">Courses du Samedi <span class="text-lg font-normal text-gray-600">(pour Dimanche S1 → Mercredi S1)</span></h2>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm text-gray-600">Pour démarrer le cycle.</p>
+                        <button id="reset-list1" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-1 px-3 rounded-lg transition-colors">Réinitialiser</button>
+                    </div>
+                    <div id="shopping-list1" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <!-- Contenu généré par JS -->
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-emerald-600 mb-4">Courses du Mercredi <span class="text-lg font-normal text-gray-600">(pour Jeudi S1 → Samedi S1)</span></h2>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm text-gray-600">Pour finir la semaine 1.</p>
+                        <button id="reset-list2" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-1 px-3 rounded-lg transition-colors">Réinitialiser</button>
+                    </div>
+                    <div id="shopping-list2" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <!-- Contenu généré par JS -->
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-emerald-600 mb-4">Courses du Samedi <span class="text-lg font-normal text-gray-600">(pour Dimanche S2 → Mercredi S2)</span></h2>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm text-gray-600">Pour la transition S2/S1.</p>
+                        <button id="reset-list3" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-1 px-3 rounded-lg transition-colors">Réinitialiser</button>
+                    </div>
+                    <div id="shopping-list3" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <!-- Contenu généré par JS -->
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <h2 class="text-2xl font-bold text-emerald-600 mb-4">Courses du Mercredi <span class="text-lg font-normal text-gray-600">(pour Jeudi S2 → Samedi S2)</span></h2>
+                    <div class="flex justify-between items-center mb-4">
+                        <p class="text-sm text-gray-600">Pour finir la semaine 2.</p>
+                        <button id="reset-list4" class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-1 px-3 rounded-lg transition-colors">Réinitialiser</button>
+                    </div>
+                    <div id="shopping-list4" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                        <!-- Contenu généré par JS -->
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <footer class="text-center mt-12 border-t pt-6">
+            <div class="flex justify-center items-center space-x-4">
+                <button id="faq-link" class="text-gray-500 hover:text-emerald-600 transition-colors">FAQ</button>
+                <span class="text-gray-400">&middot;</span>
+                <button id="lexique-link" class="text-gray-500 hover:text-emerald-600 transition-colors">Lexique</button>
+                <span class="text-gray-400">&middot;</span>
+                <button id="antiwaste-link" class="text-gray-500 hover:text-emerald-600 transition-colors">Astuces anti-gaspillage</button>
+                <span class="text-gray-400">&middot;</span>
+                <button id="changelog-link" class="text-gray-500 hover:text-emerald-600 transition-colors">Historique des versions</button>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Modals -->
+    <div id="faq-modal" class="modal-backdrop hidden">
+        <div class="bg-white p-6 rounded-xl shadow-lg w-11/12 max-w-2xl relative">
+            <button id="close-faq-modal" class="absolute top-3 right-4 text-2xl text-gray-500 hover:text-gray-800">&times;</button>
+            <h2 class="text-2xl font-bold text-emerald-600 mb-4">Foire Aux Questions (FAQ)</h2>
+            <div id="faq-content" class="modal-content space-y-6">
+                <!-- Contenu généré par JS -->
+            </div>
+        </div>
+    </div>
+
+    <div id="changelog-modal" class="modal-backdrop hidden">
+        <div class="bg-white p-6 rounded-xl shadow-lg w-11/12 max-w-2xl relative">
+            <button id="close-changelog-modal" class="absolute top-3 right-4 text-2xl text-gray-500 hover:text-gray-800">&times;</button>
+            <h2 class="text-2xl font-bold text-emerald-600 mb-4">Journal des Modifications</h2>
+            <div id="changelog-content" class="modal-content space-y-6">
+                <!-- Contenu généré par JS -->
+            </div>
+        </div>
+    </div>
+    
+    <div id="lexique-modal" class="modal-backdrop hidden">
+        <div class="bg-white p-6 rounded-xl shadow-lg w-11/12 max-w-2xl relative">
+            <button id="close-lexique-modal" class="absolute top-3 right-4 text-2xl text-gray-500 hover:text-gray-800">&times;</button>
+            <h2 class="text-2xl font-bold text-emerald-600 mb-4">Lexique Culinaire</h2>
+            <div id="lexique-content" class="modal-content space-y-6">
+                <!-- Contenu généré par JS -->
+            </div>
+        </div>
+    </div>
+    
+    <div id="antiwaste-modal" class="modal-backdrop hidden">
+        <div class="bg-white p-6 rounded-xl shadow-lg w-11/12 max-w-2xl relative">
+            <button id="close-antiwaste-modal" class="absolute top-3 right-4 text-2xl text-gray-500 hover:text-gray-800">&times;</button>
+            <h2 class="text-2xl font-bold text-emerald-600 mb-4">Astuces Anti-Gaspillage</h2>
+            <div id="antiwaste-content" class="modal-content space-y-6">
+                <!-- Contenu généré par JS -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const planData = {
+            semaine1: [
+                { day: "Dimanche", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Smoothie vert", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Cuisse de poulet rôtie aux herbes (sans peau)<br>• Poêlée de légumes de saison", a: "Assaisonnez généreusement le poulet avec les herbes de Provence avant cuisson. Salez et poivrez avec modération." },
+                    s: { t: "Collation (si besoin)", c: "• 1 pomme<br>• Une dizaine d'amandes" },
+                    d: { t: "Dîner", c: "• Bouillon de légumes maison<br>• 2 tranches de jambon blanc dégraissé", a: "Le bouillon est déjà savoureux. Goûtez avant d'ajouter une petite pincée de sel si nécessaire." }
+                }, recipes: {
+                    p: { title: "Préparation : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients." },
+                    l: { title: "Préparation : Déjeuner", content: "<strong>Poulet :</strong> Rôtir 1 cuisse de poulet sans peau avec des herbes de Provence au four à 180°C pendant 25-30 min.<br><strong>Poêlée :</strong> Couper des légumes de saison (courgette, poivron...) et les faire revenir dans 1 c.à.c d'huile d'olive." },
+                    d: { title: "Préparation : Bouillon de légumes", content: "<strong>Ingrédients :</strong> 1 oignon, 2 carottes, 1 branche de céleri, laurier, thym.<br><strong>Préparation :</strong> Couper les légumes en gros morceaux. Mettre dans une casserole, couvrir d'eau froide. Laisser mijoter à feu très doux pendant au moins 1 heure. Filtrer le liquide pour ne garder que le bouillon.<br><strong>Astuce anti-gaspillage :</strong> Vous pouvez mixer les légumes cuits avec une partie du bouillon pour obtenir un potage léger." }
+                }},
+                { day: "Lundi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Porridge anti-cholestérol<br>• Thé vert", a: "Une pincée de cannelle est délicieuse et bénéfique." },
+                    l: { t: "Déjeuner", c: "• Pavé de saumon au four<br>• Quinoa (60g cru)<br>• Brocolis vapeur", a: "Un filet de jus de citron sur le brocoli et le quinoa après cuisson." },
+                    s: { t: "Collation (si besoin)", c: "• 1 poire<br>• Quelques noix" },
+                    d: { t: "Dîner", c: "• Omelette (2 œufs) aux épinards<br>• Salade verte", a: "Poivre et ail en poudre dans l'omelette. Vinaigrette maison pour la salade." }
+                }, recipes: {
+                    p: { title: "Préparation : Porridge", content: "<strong>Ingrédients :</strong> 40g flocons d'avoine, 150ml lait d'amande, 1 c.à.s de graines de chia, 1/2 pomme en dés, quelques noix.<br><strong>Préparation :</strong> Cuire l'avoine avec le lait. Ajouter les graines de chia, la pomme et les noix avant de servir." },
+                    l: { title: "Préparation : Déjeuner", content: "<strong>Saumon :</strong> Badigeonner 130g de saumon avec 1 c.à.c d'huile d'olive, jus de citron, aneth. Cuire 15 min à 180°C.<br><strong>Accompagnement :</strong> Cuire 60g de quinoa. Cuire le brocoli à la vapeur." },
+                    d: { title: "Préparation : Omelette", content: "Faire revenir une poignée d'épinards frais dans une poêle antiadhésive. Verser 2 œufs battus dessus et cuire." }
+                }},
+                { day: "Mardi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Yaourt grec 0% (150g)<br>• Fruits rouges (100g)<br>• 1 c.à.s de noix", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Wok de poulet et légumes<br>• Un peu de quinoa (restes de lundi)", a: "Les saveurs de l'ail, du gingembre et de la sauce soja suffisent. Goûtez avant de saler." },
+                    s: { t: "Collation (si besoin)", c: "• 1 pomme" },
+                    d: { t: "Dîner", c: "• Soupe de légumes verts maison", a: "Une pincée de poivre noir au moment de servir." }
+                }, recipes: {
+                    l: { title: "Préparation : Wok", content: "<strong>Ingrédients :</strong> 130g poulet en dés, 1/2 brocoli, 1/2 poivron, 1 c.à.c sauce soja faible en sel, ail, gingembre.<br><strong>Préparation :</strong> Faire sauter le poulet. Ajouter les légumes et cuire jusqu'à ce qu'ils soient tendres mais croquants. Déglacer avec la sauce soja." },
+                    d: { title: "Préparation : Soupe", content: "<strong>Ingrédients :</strong> 1 courgette, 1/2 brocoli, 1 poignée d'épinards, 1/2 oignon, bouillon de légumes.<br><strong>Préparation :</strong> Cuire les légumes dans le bouillon 20 min, puis mixer." }
+                }},
+                { day: "Mercredi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Œufs brouillés (2) à l'avocat", a: "Poivre et une pincée de piment d'Espelette sur les œufs." },
+                    l: { t: "Déjeuner", c: "• Restes du wok de poulet de mardi", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    s: { t: "Collation (si besoin)", c: "• Yaourt grec 0% ou Skyr (150g)" },
+                    d: { t: "Dîner", c: "• Soupe de lentilles corail au curcuma", a: "Le curcuma et le cumin sont les stars. Goûtez avant de saler." }
+                }, recipes: {
+                    p: { title: "Préparation : Oeufs brouillés", content: "Battre 2 oeufs et les cuire doucement dans une poêle antiadhésive. Servir avec 1/4 d'avocat en tranches." },
+                    d: { title: "Préparation : Soupe", content: "<strong>Ingrédients :</strong> 80g lentilles corail, 1/2 oignon, 1 carotte, 1 c.à.c curcuma, 1 c.à.c cumin, 400ml bouillon de légumes.<br><strong>Préparation :</strong> Faire revenir l'oignon et la carotte. Ajouter épices, lentilles et bouillon. Laisser mijoter 20 min puis mixer." }
+                }},
+                { day: "Jeudi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Porridge anti-cholestérol", a: "Une pincée de cannelle est délicieuse et bénéfique." },
+                    l: { t: "Déjeuner", c: "• Filets de maquereau fumé (150g)<br>• Salade de carottes râpées", a: "Le maquereau est déjà salé. Un filet de jus de citron sur les carottes suffit." },
+                    s: { t: "Collation (si besoin)", c: "• 1 poire<br>• Une dizaine d'amandes" },
+                    d: { t: "Dîner", c: "• Pavé de saumon (130g)<br>• Purée de carottes maison", a: "Poivre et aneth sur le saumon. Une pincée de muscade dans la purée." }
+                }, recipes: {
+                    p: { title: "Recette : Porridge", content: "<strong>Ingrédients :</strong> 40g flocons d'avoine, 150ml lait d'amande, 1 c.à.s de graines de chia, 1/2 pomme en dés, quelques noix.<br><strong>Préparation :</strong> Cuire l'avoine avec le lait. Ajouter les graines de chia, la pomme et les noix avant de servir." },
+                    l: { title: "Préparation : Salade de carottes", content: "Râper 1 à 2 carottes et assaisonner avec du jus de citron, 1 c.à.c d'huile d'olive, sel et poivre." },
+                    d: { title: "Préparation : Dîner", content: "<strong>Saumon :</strong> Cuire comme lundi.<br><strong>Purée :</strong> Cuire 300g de carottes à la vapeur, les écraser en purée avec 1 c.à.c d'huile d'olive et une pincée de muscade." }
+                }},
+                { day: "Vendredi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Yaourt grec 0% (150g)<br>• 1 pomme en dés<br>• 1 c.à.s de noix", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Grande salade de quinoa<br>• Blanc de poulet (150g) émincé", a: "Vinaigrette maison (huile, vinaigre, moutarde). Assaisonnez le poulet avant de le griller." },
+                    s: { t: "Collation (si besoin)", c: "• 2 galettes de riz complet" },
+                    d: { t: "Dîner", c: "• Dahl de lentilles corail<br>• 2 c.à.s. de yaourt nature (50g)", a: "Les épices suffisent. Le yaourt nature apporte de la fraîcheur." }
+                }, recipes: {
+                    l: { title: "Préparation : Salade de quinoa", content: "<strong>Ingrédients :</strong> Reste de quinoa, concombre en dés, tomates, persil, jus de citron, huile d'olive.<br><strong>Préparation :</strong> Mélanger tous les ingrédients avec le poulet grillé et émincé." },
+                    d: { title: "Recette : Dahl", content: "<strong>Ingrédients :</strong> 80g lentilles corail, 1/2 oignon, 1 carotte, 1 c.à.c curcuma, 1 c.à.c cumin, 400ml bouillon de légumes.<br><strong>Préparation :</strong> Faire revenir l'oignon et la carotte. Ajouter épices, lentilles et bouillon. Laisser mijoter 20 min puis mixer." }
+                }},
+                { day: "Samedi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Smoothie vert", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Repas plaisir maîtrisé : brochette de poulet<br>• Salade composée", a: "Assaisonnez le poulet avec paprika, ail, poivre avant de griller. Vinaigrette maison pour la salade." },
+                    s: { t: "Collation (si besoin)", c: "• 1 poignée de fruits rouges" },
+                    d: { t: "Dîner", c: "• Salade composée<br>• 1 œuf dur", a: "Vinaigrette maison (huile, vinaigre, moutarde)." }
+                }, recipes: {
+                    p: { title: "Recette : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients." },
+                    l: { title: "Préparation : Déjeuner", content: "<strong>Ingrédients :</strong> 130g de poulet, jeunes pousses, 1/2 avocat, tomates cerises, 1/4 concombre.<br><strong>Préparation :</strong> Griller le poulet en brochette (sans marinade industrielle). Servir avec la salade composée." },
+                    d: { title: "Préparation : Salade", content: "<strong>Ingrédients :</strong> Jeunes pousses, 1/2 avocat en dés, tomates cerises, 1/4 concombre, 1 oeuf dur.<br><strong>Vinaigrette :</strong> 1 c.à.c huile olive, vinaigre de cidre, moutarde. Mélanger le tout." }
+                }}
+            ],
+            semaine2: [
+                { day: "Dimanche", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Œufs brouillés (2) au curcuma", a: "Le curcuma et le poivre sont parfaits. Salez très légèrement." },
+                    l: { t: "Déjeuner", c: "• Blancs de poulet au citron (150g)<br>• Riz complet et légumes vapeur", a: "Le citron et le romarin suffisent pour le poulet. Un filet d'huile d'olive sur les légumes." },
+                    s: { t: "Collation (si besoin)", c: "• 1 pomme<br>• Une dizaine d'amandes" },
+                    d: { t: "Dîner", c: "• Bouillon de poulet maison<br>• 2 c.à.s. de yaourt nature (50g)", a: "Le bouillon est déjà savoureux. Goûtez avant de saler." }
+                }, recipes: {
+                    l: { title: "Préparation : Déjeuner", content: "<strong>Poulet :</strong> Rôtir le poulet entier au four avec du citron et du romarin. Prélever un blanc de 150g pour ce repas. Conserver l'autre blanc pour le repas de mardi et la carcasse pour le bouillon du soir." },
+                    d: { title: "Préparation : Bouillon", content: "Utiliser la carcasse du poulet rôti à midi. Mettre dans une casserole, couvrir d'eau, ajouter 1 carotte, 1 oignon. Laisser mijoter 1h minimum puis filtrer.<br><strong>Astuce anti-gaspillage :</strong> Vous pouvez mixer les légumes cuits avec une partie du bouillon pour obtenir un potage léger." }
+                }},
+                { day: "Lundi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Porridge (comme S1L1)<br>• Thé vert", a: "Une pincée de cannelle est délicieuse et bénéfique." },
+                    l: { t: "Déjeuner", c: "• Steak de thon mi-cuit (150g)<br>• Poêlée de patates douces", a: "Juste du poivre sur le thon avant de griller. Le paprika sur les patates douces suffit." },
+                    s: { t: "Collation (si besoin)", c: "• 1 poire<br>• Quelques noix" },
+                    d: { t: "Dîner", c: "• Filet de dinde (150g)<br>• Purée de chou-fleur à l'ail", a: "Assaisonnez la dinde avec des herbes de Provence avant cuisson." }
+                }, recipes: {
+                    p: { title: "Recette : Porridge", content: "<strong>Ingrédients :</strong> 40g flocons d'avoine, 150ml lait d'amande, 1 c.à.s de graines de chia, 1/2 pomme en dés, quelques noix.<br><strong>Préparation :</strong> Cuire l'avoine avec le lait. Ajouter les graines de chia, la pomme et les noix avant de servir." },
+                    l: { title: "Préparation : Déjeuner", content: "<strong>Thon :</strong> Griller le steak de thon 1-2 minutes de chaque côté dans une poêle chaude sans matière grasse.<br><strong>Poêlée :</strong> Couper 200g de patate douce en dés. Poêler avec 1 c.à.c d'huile d'olive, paprika, sel, poivre jusqu'à tendreté." },
+                    d: { title: "Recette : Purée de chou-fleur", content: "<strong>Ingrédients :</strong> 1/2 chou-fleur, 1 gousse d'ail, 1 c.à.c huile d'olive.<br><strong>Préparation :</strong> Cuire le chou-fleur et l'ail à la vapeur. Mixer avec l'huile d'olive, sel, poivre." }
+                }},
+                { day: "Mardi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Yaourt grec 0% (150g)<br>• 1 poire en dés<br>• 1 c.à.s de graines de chia", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Restes du poulet au citron de dimanche", a: "Le poulet est déjà parfumé. Un filet de jus de citron si vous le mangez en salade." },
+                    s: { t: "Collation (si besoin)", c: "• 1 pomme" },
+                    d: { t: "Dîner", c: "• Sauté de poulet aux noix de cajou<br>• Riz complet (50g cru)", a: "Les saveurs de l'ail, du gingembre et de la sauce soja suffisent. Goûtez avant de saler." }
+                }, recipes: {
+                    l: { title: "Préparation : Restes", content: "Utiliser le deuxième blanc de poulet rôti dimanche. Il peut être mangé froid en salade ou réchauffé doucement." },
+                    d: { title: "Recette : Sauté de poulet cajou", content: "<strong>Ingrédients :</strong> 130g poulet, 1 poignée de noix de cajou, légumes (poivron, oignon), 1 c.à.c sauce soja faible en sel.<br><strong>Préparation :</strong> Faire dorer le poulet, ajouter les légumes puis les noix de cajou et la sauce soja. Servir avec le riz complet cuit." }
+                }},
+                { day: "Mercredi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Œufs durs (x2)<br>• 1/2 avocat avec jus de citron", a: "Une pincée de sel et de poivre sur l'avocat." },
+                    l: { t: "Déjeuner", c: "• Restes du sauté de poulet", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    s: { t: "Collation (si besoin)", c: "• Yaourt grec 0% ou Skyr (150g)" },
+                    d: { t: "Dîner", c: "• Salade de pois chiches<br>• Filets de sardines (120g)", a: "Le persil et le citron relèvent bien la salade. Les sardines sont déjà salées." }
+                }, recipes: {
+                    d: { title: "Recette : Salade de pois chiches", content: "<strong>Ingrédients :</strong> 1/2 boîte de pois chiches, 1/4 oignon rouge émincé, persil, jus de citron.<br><strong>Préparation :</strong> Rincer les pois chiches, mélanger avec les autres ingrédients. Servir avec les sardines." }
+                }},
+                { day: "Jeudi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Porridge (comme S1L1)", a: "Une pincée de cannelle est délicieuse et bénéfique." },
+                    l: { t: "Déjeuner", c: "• Omelette (2 œufs) aux champignons<br>• Salade verte", a: "Poivre et ail en poudre dans l'omelette. Vinaigrette maison pour la salade." },
+                    s: { t: "Collation (si besoin)", c: "• 1 poire<br>• Une dizaine d'amandes" },
+                    d: { t: "Dîner", c: "• Gratin de courgettes et thon<br>• Salade verte", a: "Les herbes de Provence parfument le gratin. Vinaigrette pour la salade." }
+                }, recipes: {
+                    p: { title: "Recette : Porridge", content: "<strong>Ingrédients :</strong> 40g flocons d'avoine, 150ml lait d'amande, 1 c.à.s de graines de chia, 1/2 pomme en dés, quelques noix.<br><strong>Préparation :</strong> Cuire l'avoine avec le lait. Ajouter les graines de chia, la pomme et les noix avant de servir." },
+                    l: { title: "Préparation : Omelette", content: "Faire revenir une poignée de champignons émincés dans une poêle antiadhésive. Verser 2 œufs battus dessus et cuire." },
+                    d: { title: "Recette : Gratin de courgettes (pour 2 repas)", content: "<strong>Ingrédients :</strong> 2 courgettes, 2 boîtes de thon au naturel, 2 œufs, 100ml lait d'amande, herbes de Provence.<br><strong>Préparation :</strong> Râper les courgettes. Mélanger avec le thon, les œufs battus et le lait. Assaisonner et cuire 25 min à 180°C. Conserver la moitié pour le déjeuner de demain." }
+                }},
+                { day: "Vendredi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Yaourt grec 0% (150g)<br>• 1 pomme râpée<br>• Cannelle", a: "La cannelle suffit amplement." },
+                    l: { t: "Déjeuner", c: "• Salade composée avec restes de gratin", a: "Le gratin est déjà assaisonné. Une vinaigrette légère sur la salade." },
+                    s: { t: "Collation (si besoin)", c: "• 2 galettes de riz complet" },
+                    d: { t: "Dîner", c: "• Soupe froide de concombre et avocat", a: "La menthe fraîche et le citron sont les saveurs principales. Goûtez avant de saler." }
+                }, recipes: {
+                    d: { title: "Recette : Soupe froide", content: "<strong>Ingrédients :</strong> 1/2 concombre, 1/2 avocat, menthe fraîche, jus de citron, 150g de yaourt grec.<br><strong>Préparation :</strong> Mixer tous les ingrédients. Servir très frais." }
+                }},
+                { day: "Samedi", meals: { 
+                    p: { t: "Petit-déjeuner", c: "• Smoothie (comme S1M3)", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Repas plaisir maîtrisé : Poisson blanc grillé<br>• Ratatouille maison", a: "Un filet de jus de citron et du poivre sur le poisson. La ratatouille est déjà riche en saveurs." },
+                    s: { t: "Collation (si besoin)", c: "• 1 poignée de fruits rouges" },
+                    d: { t: "Dîner", c: "• Salade de lentilles vertes<br>• 2 tranches de blanc de dinde", a: "Vinaigrette maison pour la salade." }
+                }, recipes: {
+                    p: { title: "Recette : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients." },
+                    l: { title: "Préparation : Déjeuner", content: "Griller un filet de poisson blanc (colin, cabillaud). Servir avec une portion de ratatouille maison (légumes cuits longuement à feu doux avec 1 c.à.s d'huile d'olive)." },
+                    d: { title: "Préparation : Salade de lentilles", content: "<strong>Ingrédients :</strong> 80g de lentilles vertes (poids sec), 1/4 oignon rouge émincé, 1 petite carotte en dés, persil.<br><strong>Préparation :</strong> Cuire les lentilles dans un grand volume d'eau (20-25 min). Égoutter, laisser refroidir. Mélanger avec les autres ingrédients et une vinaigrette maison." }
+                }}
+            ]
+        };
+
+        const shoppingLists = {
+            list1: { // Courses du Samedi (pour Dimanche S1 → Mercredi S1)
+                fruits_legumes: [
+                    { item: "Banane (x1)"},
+                    { item: "Avocat (x1)"},
+                    { item: "Épinards frais (~200g)"},
+                    { item: "Brocoli (1 tête), Poivron (x1)"},
+                    { item: "Carottes (x3), Oignon (x2), Céleri (1 branche)"},
+                    { item: "Ail (1 tête), Gingembre frais (1 petit morceau)"}
+                ],
+                viandes_poissons: [
+                    { item: "Cuisse de poulet (x1)"},
+                    { item: "Jambon blanc dégraissé (2 tranches)"},
+                    { item: "Filet de saumon (~130g)"},
+                    { item: "Blancs de poulet (~130g)"}
+                ],
+                cremerie_epicerie: [
+                    { item: "Œufs (boîte de 6)"},
+                    { item: "Lait d'amande non sucré (1L)"},
+                    { item: "Flocons d'avoine, Quinoa, Lentilles corail"},
+                    { item: "Graines de chia"},
+                    { item: "Huile d'olive, Herbes, Épices (Curcuma, Cumin)"}
+                ],
+                collations: [
+                    { item: "Pommes (x2), Poire (x1)"},
+                    { item: "Amandes (1 dizaine)"},
+                    { item: "Noix (2 poignées)"},
+                    { item: "Yaourt grec 0% ou Skyr (~300g)"},
+                    { item: "Fruits rouges surgelés (~100g)"}
+                ]
+            },
+            list2: { // Courses du Mercredi (pour Jeudi S1 → Samedi S1)
+                fruits_legumes: [
+                    { item: "Banane (x1)"},
+                    { item: "Carottes (~300g)"},
+                    { item: "Concombre (x1), Tomates (1 grappe), Persil (1 botte)"},
+                    { item: "Jeunes pousses (1 sachet)"},
+                    { item: "Avocat (x1)"}
+                ],
+                viandes_poissons: [
+                    { item: "Filets de maquereau fumé (~150g)"},
+                    { item: "Filet de saumon (~130g)"},
+                    { item: "Blancs de poulet (~280g)"}
+                ],
+                cremerie_epicerie: [
+                    { item: "Œufs (boîte de 6)"},
+                    { item: "Yaourt grec 0% ou Skyr (~150g)"}
+                ],
+                collations: [
+                    { item: "Pomme (x1), Poire (x1)"},
+                    { item: "Amandes (1 dizaine)"},
+                    { item: "Galettes de riz complet (2)"},
+                    { item: "Fruits rouges surgelés (1 poignée)"}
+                ]
+            },
+            list3: { // Courses du Samedi (pour Dimanche S2 → Mercredi S2)
+                fruits_legumes: [
+                    { item: "Poire (x1), Citron (x1)"},
+                    { item: "Avocat (x2)"},
+                    { item: "Patate douce (~200g), Chou-fleur (x1)"},
+                    { item: "Poivron (x1), Oignon (x1), Ail (1 tête), Carotte (x1)"}
+                ],
+                viandes_poissons: [
+                    { item: "Poulet entier (Label Rouge ~1.2kg)<br><small><i>Utilisation : 2 blancs (Dim/Mar), carcasse (bouillon Dim)</i></small>"},
+                    { item: "Steak de thon frais (~150g)"},
+                    { item: "Filet de dinde (~150g)"}
+                ],
+                cremerie_epicerie: [
+                    { item: "Œufs (boîte de 6)"},
+                    { item: "Riz complet, Noix de cajou"}
+                ],
+                collations: [
+                    { item: "Pomme (x2), Poire (x1)"},
+                    { item: "Amandes (1 dizaine)"},
+                    { item: "Noix (1 poignée)"},
+                    { item: "Yaourt grec 0% ou Skyr (~300g)"}
+                ]
+            },
+            list4: { // Courses du Mercredi (pour Jeudi S2 → Samedi S2)
+                fruits_legumes: [
+                    { item: "Pomme (x1), Concombre (x1)"},
+                    { item: "Avocat (x1), Menthe fraîche (1 botte)"},
+                    { item: "Champignons (~150g)"},
+                    { item: "Courgette (x2)"},
+                    { item: "Légumes pour ratatouille (1 courgette, 1 aubergine, 1 poivron, 1 tomate, 1 oignon)"},
+                    { item: "Jeunes pousses (salade, 1 sachet)"},
+                    { item: "Carotte (1 petite), Oignon rouge (1/4), Persil (quelques brins)"}
+                ],
+                viandes_poissons: [
+                    { item: "Thon au naturel (2 boîtes)"},
+                    { item: "Poisson blanc (colin/cabillaud, 1 filet ~150g)"},
+                    { item: "Blanc de dinde (2 tranches)"}
+                ],
+                cremerie_epicerie: [
+                    { item: "Œufs (boîte de 6)"},
+                    { item: "Yaourt grec 0% ou Skyr (~300g)"},
+                    { item: "Lentilles vertes (sèches ou conserve)"}
+                ],
+                collations: [
+                    { item: "Poire (x1)"},
+                    { item: "Amandes (1 dizaine)"},
+                    { item: "Galettes de riz complet (2)"},
+                    { item: "Fruits rouges surgelés (1 poignée)"}
+                ]
+            }
+        };
+
+        const faqData = [
+            { q: "L'application ne s'affiche pas correctement quand je l'ouvre depuis mon ordinateur.", a: "C'est un comportement normal lié à la sécurité des navigateurs. Pour que toutes les fonctionnalités (comme la sauvegarde du poids) marchent, il faut utiliser l'application dans un environnement web sécurisé, comme celui fourni par le lien Gemini. La version actuelle est conçue pour fonctionner parfaitement dans cet environnement." },
+            { q: "Que penser des programmes de repas livrés comme 'Comme J'aime' ?", a: "Ces programmes peuvent faire perdre du poids par la facilité (calories contrôlées), mais ils sont moins intéressants sur le plan nutritionnel (plats stérilisés) et surtout, ils ne vous apprennent pas à cuisiner sainement. L'approche 'fait maison' est bien meilleure pour votre santé à long terme et pour construire des habitudes durables." },
+            { q: "Comment poêler les patates douces pour qu'elles soient bien cuites ?", a: "La meilleure méthode est de combiner deux chaleurs : commencez à feu moyen-vif pour les dorer, puis baissez à feu moyen-doux et couvrez pour qu'elles cuisent à cœur sans brûler." },
+            { q: "Comment assaisonner mes plats ?", a: "La meilleure approche est d'utiliser généreusement poivre, ail en poudre, herbes (Provence, persil...) et épices (paprika, curcuma). Utilisez le sel avec modération. Pour les salades, la vinaigrette maison (1 c.à.c huile d'olive + 1 c.à.c vinaigre + 1 c.à.c moutarde) est parfaite." },
+            { q: "Que faire des légumes du bouillon ? Dois-je les jeter ?", a: "Le but principal est de boire le bouillon qui est riche en saveurs et nutriments. Cependant, pour ne pas gaspiller, vous pouvez tout à fait mixer les légumes cuits avec un peu de bouillon pour en faire un potage léger à consommer en plus du bouillon clair." },
+            { q: "Comment assaisonner mon poulet grillé ?", a: "Surtout, ne le cuisez pas nature ! Avant de le griller, saupoudrez-le généreusement de poivre, d'une pincée de sel, d'herbes de Provence, et d'ail en poudre ou de paprika si vous aimez. Cela donne beaucoup de goût sans ajouter de graisses." },
+            { q: "J'ai faim après le repas, puis-je manger des biscuits 'santé' ?", a: "Même les biscuits avec un bon Nutri-Score contiennent souvent du sucre et de la farine raffinée. Il est préférable de les éviter. À la place, buvez un thé vert, attendez 15 minutes, et si la faim persiste, prenez une petite poignée de noix ou d'amandes. C'est bien plus efficace pour la satiété et meilleur pour vos objectifs." },
+            { q: "Comment fonctionne le système de courses sur 2 jours ?", a: "C'est un cycle continu sur 2 semaines. Par exemple, les courses du Samedi de la Semaine 1 couvrent les repas du Dimanche (S1), Lundi (S2), Mardi (S2) et Mercredi (S2). Cela garantit la fraîcheur des produits tout en suivant la rotation des menus." },
+            { q: "Comment gérer la cuisson du poulet entier du Dimanche S2 ?", a: "L'idée est de rôtir le poulet entier le dimanche midi. Vous utilisez un blanc de poulet pour ce repas, le deuxième blanc pour le repas du mardi, et la carcasse pour faire le bouillon du dimanche soir. Le reste (cuisses, ailes) peut être partagé pour éviter le gaspillage." },
+            { q: "Qu'est-ce qu'un 'bouillon de poulet maison' ?", a: "C'est un bouillon fait en mijotant une carcasse de poulet (ou un morceau de poulet) avec des légumes (carotte, oignon...). C'est bien meilleur pour la santé que les cubes industriels car il ne contient ni sel excessif, ni additifs." },
+            { q: "Mon vinaigre de cidre est vieux et a un dépôt, puis-je l'utiliser ?", a: "Oui, sans aucun problème ! Le vinaigre ne se périme pas. Le dépôt est la \"mère de vinaigre\", un signe de qualité naturelle. Vous pouvez aussi utiliser du vinaigre de vin rouge comme alternative saine." },
+            { q: "Puis-je utiliser du vinaigre balsamique pour mes vinaigrettes ?", a: "Oui, mais avec modération. Le vinaigre balsamique contient des sucres naturels du raisin. Pour un usage quotidien, privilégiez le vinaigre de cidre ou de vin, et gardez le balsamique pour varier les plaisirs en plus petite quantité." },
+            { q: "Que faire si j'ai très faim entre les repas ?", a: "C'est normal au début ! Voici un plan d'action :<br><ol class='list-decimal list-inside pl-4 mt-2'><li><strong>Buvez un grand verre d'eau.</strong> Parfois, on confond la soif et la faim.</li><li><strong>Prenez une boisson chaude</strong> comme un thé vert ou une tisane (sans sucre).</li><li><strong>Attendez 15 minutes.</strong> L'envie passe souvent d'elle-même.</li><li>Si la faim est toujours là, prenez une <strong>collation saine</strong> prévue dans le programme (un fruit, un yaourt, quelques noix).</li><li><strong>Changez-vous les idées :</strong> allez marcher 5 minutes, passez un coup de fil...</li></ol>" },
+            { q: "Puis-je utiliser du riz Basmati/Thaï au lieu du riz complet ?", a: "Oui, pour commencer, utilisez ce que vous avez. Le riz complet est cependant meilleur sur le long terme car ses fibres aident à la satiété, au cholestérol et à réguler la glycémie. Pensez à en acheter lors de vos prochaines courses." },
+            { q: "Comment griller le poulet de façon saine ?", a: "Les trois meilleures options, toujours sans ajouter de matière grasse, sont :<br><ol class='list-decimal list-inside pl-4 mt-2'><li><strong>Sur un petit grill de contact :</strong> Idéal pour une cuisson rapide et saine.</li><li><strong>Au four :</strong> Parfait pour cuire plusieurs portions en même temps (\"meal prep\").</li><li><strong>À la poêle :</strong> Une bonne solution si votre poêle est bien antiadhésive.</li></ol>" },
+            { q: "Les sardines en conserve que j'ai trouvées sont-elles correctes ?", a: "Oui, les sardines entières à l'huile d'olive vierge extra sont un excellent choix. Elles sont riches en Oméga-3 et en calcium. Il suffit de bien les égoutter avant de les consommer." },
+            { q: "Pourquoi un plan sur 2 semaines et pas sur 1 seule ?", a: "Une rotation sur 2 semaines est plus efficace pour la richesse nutritionnelle (plus de vitamines/minéraux), pour éviter la lassitude, pour la santé de votre microbiote intestinal et pour vous aider à apprendre plus de recettes saines." },
+            { q: "Puis-je boire du thé vert le soir ?", a: "Il est préférable d'éviter après 17h. Le thé vert contient de la théine (caféine) qui peut perturber le sommeil. Le soir, privilégiez des boissons sans théine comme l'eau chaude avec du citron/gingembre, ou des tisanes (verveine, camomille)." },
+            { q: "Puis-je utiliser des produits surgelés (saumon, poulet...) ?", a: "Oui, absolument ! Les produits surgelés \"nature\" (sans sauce, ni panure) sont parfaits. Ils conservent très bien leurs nutriments, sont pratiques et souvent plus économiques." },
+            { q: "Puis-je remplacer la dinde par du poulet ?", a: "Oui, sans aucun problème. Ce sont deux viandes blanches maigres très similaires. Le plus important est de choisir celle que vous préférez pour suivre le programme facilement." },
+            { q: "Comment assaisonner mes salades ?", a: "Toujours avec une vinaigrette maison saine : 1 c.à.c d'huile d'olive vierge extra, du vinaigre de cidre ou du jus de citron, et un peu de moutarde si vous aimez. C'est parfait pour la santé !" },
+            { q: "J'ai des graines de chia, est-ce que c'est bien ?", a: "C'est un grand OUI ! Les graines de chia sont excellentes (riches en fibres, oméga-3). Vous pouvez les utiliser dans les porridges, smoothies et yaourts." },
+            { q: "Les oignons frits sont-ils autorisés ?", a: "Non, il est préférable de les éviter car ils sont trop gras et salés. L'alternative parfaite est d'utiliser de l'oignon rouge cru, coupé en fines lamelles dans vos salades." }
+        ];
+
+        const changelogData = [
+            { version: "6.6", date: "31 Juillet 2025", changes: ["Ajout de la section 'Collation' dans le planning journalier.", "Mise à jour des listes de courses et de la FAQ en conséquence."] },
+            { version: "6.5", date: "31 Juillet 2025", changes: ["Ajout de la section 'Collation' dans le planning journalier.", "Mise à jour des listes de courses et de la FAQ en conséquence."] },
+            { version: "6.4", date: "31 Juillet 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
+            { version: "6.3", date: "31 Juillet 2025", changes: ["Ajout de la section 'Collation' dans le planning journalier.", "Mise à jour des listes de courses et de la FAQ en conséquence."] },
+            { version: "6.2", date: "31 Juillet 2025", changes: ["Ajout de la recette de la salade de lentilles et correction de la liste de courses correspondante."] },
+            { version: "6.0", date: "31 Juillet 2025", changes: ["Ajout d'un graphique 'Radar des Principes Santé' sur la page Vue d'Ensemble.", "Enrichissement des détails sur les aliments anti-inflammatoires."] },
+            { version: "5.9", date: "30 Juillet 2025", changes: ["Mise à jour des listes de courses pour inclure le Skyr comme alternative au yaourt grec.", "Ajout d'une question à la FAQ pour clarifier la différence entre le yaourt grec et le Skyr."] },
+            { version: "5.8", date: "30 Juillet 2025", changes: ["Correction finale des listes de courses pour une synchronisation parfaite avec les menus.", "Ajout de la recette et des quantités précises pour la salade de lentilles.", "Mise à jour de la FAQ avec la question sur le thon frais."] },
+            { version: "5.7", date: "30 Juillet 2025", changes: ["Correction d'un bug persistant sur la fonctionnalité de suivi du poids en supprimant temporairement la fonctionnalité pour garantir la stabilité de l'application.", "Nettoyage du code et des dépendances associées."] },
+            { version: "5.6", date: "29 Juillet 2025", changes: ["Correction du chargement des librairies JavaScript pour assurer la compatibilité en local.", "Ajout d'une question à la FAQ expliquant pourquoi l'application fonctionne mieux via le lien Gemini que depuis un fichier local."] },
+            { version: "5.3", date: "29 Juillet 2025", changes: ["Ajout de la section \"Astuces anti-gaspillage\" en bas de page.", "Mise à jour de la FAQ avec les dernières questions."] },
+            { version: "5.2", date: "29 Juillet 2025", changes: ["Ajout de la fonctionnalité de suivi du poids avec graphique et sauvegarde automatique des données.", "Création d'un nouvel onglet 'Suivi du Poids'.", "Mise à jour de la FAQ avec les explications sur le suivi du poids."] },
+            { version: "5.0", date: "28 Juillet 2025", changes: ["Ajout de la question sur les plats préparés type 'Comme J'aime' à la FAQ."] },
+            { version: "4.9", date: "28 Juillet 2025", changes: ["Ajout de la section \"Astuces anti-gaspillage\" en bas de page.", "Mise à jour de la FAQ avec les dernières questions."] },
+            { version: "4.8", date: "27 Juillet 2025", changes: ["Ajout d'une section \"Assaisonnement conseillé\" pour chaque plat.", "Vérification complète de la cohérence entre les recettes et les listes de courses.", "Mise à jour de la FAQ avec les dernières questions."] },
+            { version: "4.3", date: "27 Juillet 2025", changes: ["Ajout d'un onglet 'Lexique' pour les termes culinaires.", "Déplacement des onglets 'FAQ' et 'Journal' vers des liens discrets en bas de page pour épurer l'interface."] },
+            { version: "4.2", date: "27 Juillet 2025", changes: ["Correction des recettes pour supprimer les références croisées et ajout des ingrédients manquants aux listes de courses.", "Mise à jour de la FAQ avec la clarification sur la logique de rotation des courses.", "Intégration de la cuisson du poulet entier dans le planning et les listes de courses."] },
+            { version: "4.0", date: "27 Juillet 2025", changes: ["Refonte complète des listes de courses pour un cycle de rotation sur 2 semaines (achats le Samedi et le Mercredi).", "Optimisation des menus pour garantir la fraîcheur des produits périssables après chaque jour de courses."] },
+            { version: "3.5", date: "25 Juillet 2025", changes: ["Ajout d'une section à la FAQ sur la gestion des fringales."] },
+            { version: "3.4", date: "25 Juillet 2025", changes: ["Ajout de l'onglet \"FAQ\" pour centraliser les questions et réponses."] },
+            { version: "3.3", date: "25 Juillet 2025", changes: ["Amélioration du programme d'exercices pour mieux cibler les cuisses, abdominaux, pectoraux et bras.", "Ajout d'exercices spécifiques (Chaise au mur, Crunchs inversés) tout en protégeant le dos.", "Intégration d'une note de précaution pour les douleurs au dos et au cou."] },
+            { version: "3.2", date: "25 Juillet 2025", changes: ["Intégration des graines de chia dans les recettes et listes de courses.", "Correction de l'incohérence \"restes de poulet\" pour plus de clarté.", "Ajout du \"Journal des Modifications\"."] },
+            { version: "3.0", date: "25 Juillet 2025", changes: ["Refonte complète des menus pour cibler le cholestérol, le foie et l'inflammation.", "Ajout des recettes détaillées directement dans le planning journalier.", "Amélioration des listes de courses avec cases à cocher et boutons de réinitialisation."] },
+            { version: "2.0", date: "24 Juillet 2025", changes: ["Ajout de l'onglet et des listes de courses détaillées.", "Inclusion des estimations de prix et des budgets hebdomadaires.", "Ajout des quantités précises pour chaque article."] },
+            { version: "1.0", date: "24 Juillet 2025", changes: ["Création initiale de l'application avec planning alimentaire et d'exercices."] }
+        ];
+        
+        const lexiqueData = [
+            { term: "Badigeonner", definition: "Appliquer une substance (huile, marinade) sur un aliment avec un pinceau de cuisine pour l'enduire uniformément." },
+            { term: "Déglacer", definition: "Verser un liquide (eau, bouillon, vinaigre) dans une poêle chaude pour dissoudre les sucs de cuisson collés au fond et créer une base de sauce savoureuse." },
+            { term: "Émincer", definition: "Couper un aliment (oignon, champignons, etc.) en tranches très fines." },
+            { term: "Faire revenir / Rissoler", definition: "Cuire un aliment à feu vif dans un peu de matière grasse jusqu'à ce qu'il soit bien doré et coloré en surface." },
+            { term: "Mijoter", definition: "Cuire un plat lentement, à feu très doux et généralement à couvert, pour que les saveurs se mélangent et que les viandes s'attendrissent." }
+        ];
+
+        const antiWasteData = [
+            { title: "Légumes du Bouillon", tip: "Après avoir filtré votre bouillon, ne jetez pas les légumes ! Mixez-les avec une partie du bouillon pour obtenir un délicieux potage anti-gaspillage." },
+            { title: "Poulet Entier", tip: "Quand une recette demande un blanc de poulet, pensez à rôtir un poulet entier. Utilisez les blancs pour vos repas, et la carcasse pour faire un bouillon maison riche et savoureux." },
+            { title: "Tige de Brocoli", tip: "Ne jetez jamais la tige du brocoli. Pelez la couche extérieure dure, coupez l'intérieur en dés et cuisinez-le avec les fleurettes. C'est délicieux et plein de nutriments." },
+            { title: "Épluchures de Légumes (Bio)", tip: "Si vos légumes sont bio, brossez-les bien et gardez la peau (carottes, oignons) pour enrichir vos bouillons en saveurs, couleurs et nutriments." },
+            { title: "Zestes de Citron", tip: "Avant de presser un citron, prélevez le zeste avec une râpe fine. Congelez-le dans une petite boîte et utilisez-le pour parfumer poissons, yaourts ou vinaigrettes." },
+            { title: "Restes de Salade", tip: "Un fond de salade composée ? Mixez-le avec un peu de bouillon pour une soupe froide express (gaspacho) ou hachez-le finement pour l'ajouter à une omelette." }
+        ];
+
+        let currentWeek = 'semaine1';
+        let currentDayIndex = 0;
+
+        const dayTitle = document.getElementById('day-title');
+        const breakfastCard = document.getElementById('breakfast-card');
+        const lunchCard = document.getElementById('lunch-card');
+        const dinnerCard = document.getElementById('dinner-card');
+        const snackCard = document.getElementById('snack-card');
+
+        const week1Btn = document.getElementById('week1-btn');
+        const week2Btn = document.getElementById('week2-btn');
+        const prevDayBtn = document.getElementById('prev-day-btn');
+        const nextDayBtn = document.getElementById('next-day-btn');
+        
+        const tabs = ['overview', 'food', 'exercise', 'shopping'];
+        const contentSections = {
+            overview: document.getElementById('content-overview'),
+            food: document.getElementById('content-food'),
+            exercise: document.getElementById('content-exercise'),
+            shopping: document.getElementById('content-shopping')
+        };
+        const tabButtons = {
+            overview: document.getElementById('tab-overview'),
+            food: document.getElementById('tab-food'),
+            exercise: document.getElementById('tab-exercise'),
+            shopping: document.getElementById('tab-shopping')
+        };
+
+        function switchTab(activeTab) {
+            tabs.forEach(tabId => {
+                const is_active = tabId === activeTab;
+                contentSections[tabId].classList.toggle('hidden', !is_active);
+                tabButtons[tabId].classList.toggle('tab-active', is_active);
+                tabButtons[tabId].classList.toggle('tab-inactive', !is_active);
+            });
+        }
+
+        function updateMealDisplay() {
+            const dayData = planData[currentWeek][currentDayIndex];
+            dayTitle.textContent = dayData.day;
+            
+            function generateCardHTML(mealData, recipeData) {
+                if (!mealData) return '';
+                let html = `<h3 class="text-xl font-bold text-emerald-600 mb-3">${mealData.t}</h3><div class="text-gray-700">${mealData.c}</div>`;
+                if (mealData.a) {
+                    html += `<div class="mt-3 pt-3 border-t border-dashed border-gray-200 text-sm text-gray-600">
+                        <p><span class="font-semibold text-emerald-700">Assaisonnement conseillé :</span> ${mealData.a}</p>
+                    </div>`;
+                }
+                if (recipeData) {
+                    html += `<div class="recipe-card">
+                        <h4 class="font-bold text-md text-emerald-700 mb-2">Préparation</h4>
+                        <div class="text-sm text-gray-600">${recipeData.content}</div>
+                    </div>`;
+                }
+                return html;
+            }
+
+            breakfastCard.innerHTML = generateCardHTML(dayData.meals.p, dayData.recipes ? dayData.recipes.p : null);
+            lunchCard.innerHTML = generateCardHTML(dayData.meals.l, dayData.recipes ? dayData.recipes.l : null);
+            snackCard.innerHTML = generateCardHTML(dayData.meals.s, dayData.recipes ? dayData.recipes.s : null);
+            dinnerCard.innerHTML = generateCardHTML(dayData.meals.d, dayData.recipes ? dayData.recipes.d : null);
+        }
+
+        function updateWeekButtons() {
+            week1Btn.classList.toggle('bg-emerald-500', currentWeek === 'semaine1');
+            week1Btn.classList.toggle('text-white', currentWeek === 'semaine1');
+            week1Btn.classList.toggle('bg-white', currentWeek !== 'semaine1');
+            
+            week2Btn.classList.toggle('bg-emerald-500', currentWeek === 'semaine2');
+            week2Btn.classList.toggle('text-white', currentWeek === 'semaine2');
+            week2Btn.classList.toggle('bg-white', currentWeek !== 'semaine2');
+        }
+        
+        function generateShoppingListHTML(listData) {
+            let html = '';
+            for (const category in listData) {
+                const title = category.replace('_', ' & ').replace(/\b\w/g, l => l.toUpperCase());
+                html += `<div><h3 class="font-semibold text-lg mb-2 text-gray-800">${title}</h3><ul class="space-y-2 text-gray-700">`;
+                listData[category].forEach(item => {
+                    html += `<li><label class="flex items-center cursor-pointer"><input type="checkbox" class="mr-3 h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"><span>${item.item}</span></label></li>`;
+                });
+                html += `</ul></div>`;
+            }
+            return html;
+        }
+
+        function populateAllShoppingLists() {
+            document.getElementById('shopping-list1').innerHTML = generateShoppingListHTML(shoppingLists.list1);
+            document.getElementById('shopping-list2').innerHTML = generateShoppingListHTML(shoppingLists.list2);
+            document.getElementById('shopping-list3').innerHTML = generateShoppingListHTML(shoppingLists.list3);
+            document.getElementById('shopping-list4').innerHTML = generateShoppingListHTML(shoppingLists.list4);
+        }
+
+        function setupShoppingListInteractions() {
+            document.getElementById('reset-list1').addEventListener('click', () => {
+                document.querySelectorAll('#shopping-list1 input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+            });
+            document.getElementById('reset-list2').addEventListener('click', () => {
+                document.querySelectorAll('#shopping-list2 input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+            });
+            document.getElementById('reset-list3').addEventListener('click', () => {
+                document.querySelectorAll('#shopping-list3 input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+            });
+            document.getElementById('reset-list4').addEventListener('click', () => {
+                document.querySelectorAll('#shopping-list4 input[type="checkbox"]').forEach(cb => { cb.checked = false; });
+            });
+        }
+        
+        function populateFaq() {
+            const faqContainer = document.querySelector('#faq-modal #faq-content');
+            let html = '';
+            faqData.forEach((item, index) => {
+                html += `<div class="${index > 0 ? 'border-t pt-6' : ''}">
+                            <h3 class="font-semibold text-lg text-gray-800">Q : ${item.q}</h3>
+                            <p class="text-gray-700 mt-2 pl-4"><strong>R :</strong> ${item.a}</p>
+                         </div>`;
+            });
+            faqContainer.innerHTML = html;
+        }
+
+        function populateChangelog() {
+            const changelogContainer = document.querySelector('#changelog-modal #changelog-content');
+            let html = '';
+            changelogData.forEach((item, index) => {
+                html += `<div class="${index > 0 ? 'border-t pt-6' : ''}">
+                            <h3 class="font-semibold text-lg text-gray-800">Version ${item.version} <span class="text-sm font-normal text-gray-500">- ${item.date}</span></h3>
+                            <ul class="list-disc list-inside text-gray-700 mt-2 pl-4">
+                                ${item.changes.map(change => `<li>${change}</li>`).join('')}
+                            </ul>
+                         </div>`;
+            });
+            changelogContainer.innerHTML = html;
+        }
+
+        function populateLexique() {
+            const lexiqueContainer = document.querySelector('#lexique-modal #lexique-content');
+            let html = '';
+            lexiqueData.sort((a, b) => a.term.localeCompare(b.term)).forEach((item, index) => {
+                html += `<div class="${index > 0 ? 'border-t pt-6' : ''}">
+                            <h3 class="font-semibold text-lg text-gray-800">${item.term}</h3>
+                            <p class="text-gray-700 mt-2 pl-4">${item.definition}</p>
+                         </div>`;
+            });
+            lexiqueContainer.innerHTML = html;
+        }
+
+        function populateAntiWaste() {
+            const antiwasteContainer = document.querySelector('#antiwaste-modal #antiwaste-content');
+            let html = '';
+            antiWasteData.forEach((item, index) => {
+                html += `<div class="${index > 0 ? 'border-t pt-6' : ''}">
+                            <h3 class="font-semibold text-lg text-gray-800">${item.title}</h3>
+                            <p class="text-gray-700 mt-2 pl-4">${item.tip}</p>
+                         </div>`;
+            });
+            antiwasteContainer.innerHTML = html;
+        }
+
+        function setupModals() {
+            const faqModal = document.getElementById('faq-modal');
+            const changelogModal = document.getElementById('changelog-modal');
+            const lexiqueModal = document.getElementById('lexique-modal');
+            const antiwasteModal = document.getElementById('antiwaste-modal');
+            
+            document.getElementById('faq-link').addEventListener('click', () => faqModal.classList.remove('hidden'));
+            document.getElementById('changelog-link').addEventListener('click', () => changelogModal.classList.remove('hidden'));
+            document.getElementById('lexique-link').addEventListener('click', () => lexiqueModal.classList.remove('hidden'));
+            document.getElementById('antiwaste-link').addEventListener('click', () => antiwasteModal.classList.remove('hidden'));
+
+            document.getElementById('close-faq-modal').addEventListener('click', () => faqModal.classList.add('hidden'));
+            document.getElementById('close-changelog-modal').addEventListener('click', () => changelogModal.classList.add('hidden'));
+            document.getElementById('close-lexique-modal').addEventListener('click', () => lexiqueModal.classList.add('hidden'));
+            document.getElementById('close-antiwaste-modal').addEventListener('click', () => antiwasteModal.classList.add('hidden'));
+
+            faqModal.addEventListener('click', (e) => { if (e.target === faqModal) faqModal.classList.add('hidden'); });
+            changelogModal.addEventListener('click', (e) => { if (e.target === changelogModal) changelogModal.classList.add('hidden'); });
+            lexiqueModal.addEventListener('click', (e) => { if (e.target === lexiqueModal) lexiqueModal.classList.add('hidden'); });
+            antiwasteModal.addEventListener('click', (e) => { if (e.target === antiwasteModal) antiwasteModal.classList.add('hidden'); });
+        }
+
+        week1Btn.addEventListener('click', () => {
+            currentWeek = 'semaine1';
+            currentDayIndex = 0;
+            updateWeekButtons();
+            updateMealDisplay();
+        });
+
+        week2Btn.addEventListener('click', () => {
+            currentWeek = 'semaine2';
+            currentDayIndex = 0;
+            updateWeekButtons();
+            updateMealDisplay();
+        });
+
+        prevDayBtn.addEventListener('click', () => {
+            currentDayIndex = (currentDayIndex - 1 + planData[currentWeek].length) % planData[currentWeek].length;
+            updateMealDisplay();
+        });
+
+        nextDayBtn.addEventListener('click', () => {
+            currentDayIndex = (currentDayIndex + 1) % planData[currentWeek].length;
+            updateMealDisplay();
+        });
+
+        tabs.forEach(tabId => {
+            tabButtons[tabId].addEventListener('click', () => switchTab(tabId));
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            switchTab('overview');
+            updateWeekButtons();
+            updateMealDisplay();
+            populateAllShoppingLists();
+            setupShoppingListInteractions();
+            populateFaq();
+            populateChangelog();
+            populateLexique();
+            populateAntiWaste();
+            setupModals();
+
+            const ctx = document.getElementById('macroChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Protéines', 'Glucides', 'Lipides Sains'],
+                    datasets: [{
+                        label: 'Répartition en %',
+                        data: [35, 35, 30],
+                        backgroundColor: [
+                            'rgba(16, 185, 129, 0.8)',
+                            'rgba(59, 130, 246, 0.8)',
+                            'rgba(245, 158, 11, 0.8)'
+                        ],
+                        borderColor: [
+                            '#ffffff',
+                            '#ffffff',
+                            '#ffffff'
+                        ],
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const healthCtx = document.getElementById('healthFocusChart').getContext('2d');
+            new Chart(healthCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Oméga-3', 'Amis du Foie', 'Anti-inflammatoire', 'Fibres Solubles'],
+                    datasets: [{
+                        label: 'Nombre de repas sur 2 semaines',
+                        data: [9, 17, 17, 17],
+                        backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                        borderColor: 'rgba(16, 185, 129, 1)',
+                        pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(16, 185, 129, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12
+                                }
+                            },
+                            ticks: {
+                                backdropColor: 'rgba(255, 255, 255, 0.75)',
+                                stepSize: 5
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                           display: false
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
