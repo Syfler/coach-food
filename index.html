@@ -425,15 +425,16 @@
                     { item: "Banane (x1)"},
                     { item: "Avocat (x1)"},
                     { item: "Épinards frais (~200g)"},
-                    { item: "Brocoli (1 tête), Poivron (x1)"},
+                    { item: "Brocoli (1 tête), Poivron (x1), Courgette (x1)"},
                     { item: "Carottes (x3), Oignon (x2), Céleri (1 branche)"},
+                    { item: "Salade verte (1 sachet)"},
                     { item: "Ail (1 tête), Gingembre frais (1 petit morceau)"}
                 ],
                 viandes_poissons: [
                     { item: "Cuisse de poulet (x1)"},
                     { item: "Jambon blanc dégraissé (2 tranches)"},
                     { item: "Filet de saumon (~130g)"},
-                    { item: "Blancs de poulet (~130g)"}
+                    { item: "Blancs de poulet (~260g)"}
                 ],
                 cremerie_epicerie: [
                     { item: "Œufs (boîte de 6)"},
@@ -452,7 +453,7 @@
             },
             list2: { // Courses du Mercredi (pour Jeudi S1 → Samedi S1)
                 fruits_legumes: [
-                    { item: "Pomme (x2), Banane (x1)"},
+                    { item: "Pomme (x2), Banane (x1), Citron (x1)"},
                     { item: "Carottes (~300g)"},
                     { item: "Concombre (x1), Tomates (1 grappe), Persil (1 botte)"},
                     { item: "Jeunes pousses (1 sachet)"},
@@ -479,16 +480,19 @@
                     { item: "Poire (x1), Citron (x1)"},
                     { item: "Avocat (x2)"},
                     { item: "Patate douce (~200g), Chou-fleur (x1)"},
-                    { item: "Poivron (x1), Oignon (x1), Ail (1 tête), Carotte (x1)"}
+                    { item: "Poivron (x1), Oignon (x1), Ail (1 tête), Carotte (x1)"},
+                    { item: "Oignon rouge (x1), Persil (1 botte)"}
                 ],
                 viandes_poissons: [
                     { item: "Poulet entier (Label Rouge ~1.2kg)<br><small><i>Utilisation : 2 blancs (Dim/Mar), carcasse (bouillon Dim)</i></small>"},
                     { item: "Steak de thon frais (~150g)"},
-                    { item: "Filet de dinde (~150g)"}
+                    { item: "Filet de dinde (~150g)"},
+                    { item: "Sardines à l'huile (1 boîte)"}
                 ],
                 cremerie_epicerie: [
                     { item: "Œufs (boîte de 6)"},
-                    { item: "Riz complet, Noix de cajou"}
+                    { item: "Riz complet, Noix de cajou"},
+                    { item: "Pois chiches (1 conserve)"}
                 ],
                 collations: [
                     { item: "Pomme (x2), Poire (x1)"},
@@ -515,7 +519,7 @@
                 cremerie_epicerie: [
                     { item: "Œufs (boîte de 6)"},
                     { item: "Yaourt grec 0% ou Skyr (~300g)"},
-                    { item: "Lentilles vertes (sèches ou conserve)"}
+                    { item: "Lentilles vertes (1 conserve ou ~100g sèches)"}
                 ],
                 collations: [
                     { item: "Poire (x1)"},
@@ -553,6 +557,9 @@
         ];
 
         const changelogData = [
+            { version: "8.0", date: "14 Août 2025", changes: ["Correction des incohérences entre les menus et les listes de courses.", "Audit complet et synchronisation de tous les ingrédients nécessaires pour les 2 semaines."] },
+            { version: "7.9", date: "13 Août 2025", changes: ["Correction du journal des modifications pour refléter les dates et versions correctes."] },
+            { version: "7.8", date: "13 Août 2025", changes: ["Correction du journal des modifications pour refléter les dates et versions correctes."] },
             { version: "7.7", date: "06 Août 2025", changes: ["Correction du journal des modifications pour refléter les dates et versions correctes."] },
             { version: "7.6", date: "06 Août 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
             { version: "7.5", date: "06 Août 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
@@ -572,7 +579,7 @@
             { version: "6.0", date: "31 Juillet 2025", changes: ["Ajout d'un graphique 'Radar des Principes Santé' sur la page Vue d'Ensemble.", "Enrichissement des détails sur les aliments anti-inflammatoires."] },
             { version: "5.9", date: "30 Juillet 2025", changes: ["Mise à jour des listes de courses pour inclure le Skyr comme alternative au yaourt grec.", "Ajout d'une question à la FAQ pour clarifier la différence entre le yaourt grec et le Skyr."] },
             { version: "5.8", date: "30 Juillet 2025", changes: ["Correction finale des listes de courses pour une synchronisation parfaite avec les menus.", "Ajout de la recette et des quantités précises pour la salade de lentilles.", "Mise à jour de la FAQ avec la question sur le thon frais."] },
-            { version: "5.7", date: "30 Juillet 2025", changes: ["Correction d'un bug persistant sur la fonctionnalité de suivi du poids en supprimant temporairement la fonctionnalité pour garantir la stabilité de l'application.", "Nettoyage du code et des dépendances associées."] },
+            { version: "5.7", date: "29 Juillet 2025", changes: ["Correction d'un bug persistant sur la fonctionnalité de suivi du poids en supprimant temporairement la fonctionnalité pour garantir la stabilité de l'application.", "Nettoyage du code et des dépendances associées."] },
             { version: "5.6", date: "29 Juillet 2025", changes: ["Correction du chargement des librairies JavaScript pour assurer la compatibilité en local.", "Ajout d'une question à la FAQ expliquant pourquoi l'application fonctionne mieux via le lien Gemini que depuis un fichier local."] },
             { version: "5.3", date: "29 Juillet 2025", changes: ["Ajout de la section \"Astuces anti-gaspillage\" en bas de page.", "Mise à jour de la FAQ avec les dernières questions."] },
             { version: "5.2", date: "29 Juillet 2025", changes: ["Ajout de la fonctionnalité de suivi du poids avec graphique et sauvegarde automatique des données.", "Création d'un nouvel onglet 'Suivi du Poids'.", "Mise à jour de la FAQ avec les explications sur le suivi du poids."] },
