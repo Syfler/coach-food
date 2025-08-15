@@ -82,7 +82,7 @@
 
         <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-800 p-4 rounded-md mb-8" role="alert">
             <p class="font-bold">Avis Important : Consultation Médicale Indispensable</p>
-            <p class="text-sm">Ce programme est adapté à vos résultats mais doit être suivi en accord avec votre médecin traitant et/ou votre gastro-entérologue.</p>
+            <p class="text-sm">Ce programme est adapté à vos résultats et à votre RCH, mais doit être suivi en accord avec votre médecin traitant et/ou votre gastro-entérologue.</p>
         </div>
 
         <nav class="mb-8 flex justify-center flex-wrap gap-2 md:space-x-4">
@@ -99,9 +99,9 @@
                     <h2 class="text-2xl font-bold text-emerald-600 mb-4">Vos Nouveaux Principes Santé</h2>
                     <ul class="space-y-3 text-gray-700">
                         <li class="flex items-start"><span class="text-emerald-500 mr-3">🐟</span> <strong>Focus Oméga-3 :</strong> Poissons gras (saumon, maquereau, sardines), noix et graines de chia pour réduire le cholestérol et l'inflammation.</li>
-                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🥦</span> <strong>Amis du Foie :</strong> Brocoli, ail, curcuma, et thé vert pour soutenir la fonction hépatique. Zéro alcool et sucres ajoutés.</li>
-                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🍓</span> <div><strong>Puissance Anti-inflammatoire :</strong> Un maximum de végétaux colorés et d'épices. Dans vos menus, cela inclut les <strong>fruits rouges, épinards, brocolis, tomates, poivrons rouges</strong>, ainsi que les épices comme le <strong>curcuma et le gingembre</strong>.</div></li>
-                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🌾</span> <strong>Fibres Solubles :</strong> Flocons d'avoine, légumineuses, pommes et carottes pour aider à capter le mauvais cholestérol.</li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🥕</span> <strong>Légumes Doux :</strong> Carottes, courgettes et patates douces, toujours bien cuites et de préférence en purée/velouté, sont vos meilleurs alliés.</li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🍓</span> <div><strong>Puissance Anti-inflammatoire :</strong> Un maximum de végétaux colorés et d'épices. Dans vos menus, cela inclut les <strong>fruits rouges (en smoothie tamisé), épinards cuits, carottes, tomates pelées/épépinées et cuites</strong>, ainsi que les épices comme le <strong>curcuma et le gingembre</strong>.</div></li>
+                        <li class="flex items-start"><span class="text-emerald-500 mr-3">🌾</span> <strong>Fibres Solubles :</strong> Flocons d'avoine, pommes et carottes pour aider à capter le mauvais cholestérol.</li>
                         <li class="flex items-start"><span class="text-emerald-500 mr-3">💧</span> <strong>Hydratation Essentielle :</strong> 1,5 à 2 litres d'eau ou de tisanes non sucrées par jour.</li>
                     </ul>
                 </div>
@@ -284,77 +284,77 @@
         const planData = {
             semaine1: [
                 { day: "Dimanche", meals: { 
-                    p: { t: "Petit-déjeuner", c: "• Smoothie vert", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
-                    l: { t: "Déjeuner", c: "• Cuisse de poulet rôtie aux herbes (sans peau)<br>• Poêlée de légumes de saison", a: "Assaisonnez généreusement le poulet avec les herbes de Provence avant cuisson. Salez et poivrez avec modération." },
+                    p: { t: "Petit-déjeuner", c: "• Smoothie vert (tamisé)", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Cuisse de poulet rôtie aux herbes (sans peau)<br>• Purée de carottes", a: "Assaisonnez généreusement le poulet avec les herbes de Provence avant cuisson. Salez et poivrez avec modération." },
                     s: { t: "Collation (si besoin)", c: "• 1 pomme<br>• Une dizaine d'amandes" },
                     d: { t: "Dîner", c: "• Bouillon de légumes maison<br>• 2 tranches de jambon blanc dégraissé", a: "Le bouillon est déjà savoureux. Goûtez avant d'ajouter une petite pincée de sel si nécessaire." }
                 }, recipes: {
-                    p: { title: "Préparation : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients." },
-                    l: { title: "Préparation : Déjeuner", content: "<strong>Poulet :</strong> Rôtir 1 cuisse de poulet sans peau avec des herbes de Provence au four à 180°C pendant 25-30 min.<br><strong>Poêlée :</strong> Couper des légumes de saison (courgette, poivron...) et les faire revenir dans 1 c.à.c d'huile d'olive." },
+                    p: { title: "Préparation : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients puis passer au tamis fin pour enlever les fibres et graines." },
+                    l: { title: "Préparation : Déjeuner", content: "<strong>Poulet :</strong> Rôtir 1 cuisse de poulet sans peau avec des herbes de Provence au four à 180°C pendant 25-30 min.<br><strong>Purée :</strong> Cuire 2-3 carottes à la vapeur et les mixer en purée." },
                     d: { title: "Préparation : Bouillon de légumes", content: "<strong>Ingrédients :</strong> 1 oignon, 2 carottes, 1 branche de céleri, laurier, thym.<br><strong>Préparation :</strong> Couper les légumes en gros morceaux. Mettre dans une casserole, couvrir d'eau froide. Laisser mijoter à feu très doux pendant au moins 1 heure. Filtrer le liquide pour ne garder que le bouillon.<br><strong>Astuce anti-gaspillage :</strong> Vous pouvez mixer les légumes cuits avec une partie du bouillon pour obtenir un potage léger." }
                 }},
                 { day: "Lundi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Porridge anti-cholestérol<br>• Thé vert", a: "Une pincée de cannelle est délicieuse et bénéfique." },
-                    l: { t: "Déjeuner", c: "• Pavé de saumon au four<br>• Quinoa (120g cru)<br>• Brocolis vapeur", a: "Un filet de jus de citron sur le brocoli et le quinoa après cuisson." },
+                    l: { t: "Déjeuner", c: "• Pavé de saumon au four<br>• Quinoa (120g cru)<br>• Épinards cuits", a: "Un filet de jus de citron sur les épinards et le quinoa après cuisson." },
                     s: { t: "Collation (si besoin)", c: "• 1 poire<br>• Quelques noix" },
-                    d: { t: "Dîner", c: "• Omelette (2 œufs) aux épinards<br>• Salade verte", a: "Poivre et ail en poudre dans l'omelette. Vinaigrette maison pour la salade." }
+                    d: { t: "Dîner", c: "• Omelette (2 œufs) aux épinards cuits", a: "Poivre et ail en poudre dans l'omelette." }
                 }, recipes: {
                     p: { title: "Préparation : Porridge", content: "<strong>Ingrédients :</strong> 40g flocons d'avoine, 150ml lait d'amande, 1 c.à.s de graines de chia, 1/2 pomme en dés, quelques noix.<br><strong>Préparation :</strong> Cuire l'avoine avec le lait. Ajouter les graines de chia, la pomme et les noix avant de servir." },
                     l: { title: "Préparation : Déjeuner", content: "<strong>Saumon :</strong> Badigeonner 130g de saumon avec 1 c.à.c d'huile d'olive, jus de citron, aneth. Cuire 15 min à 180°C.<br><strong>Accompagnement :</strong> Cuire 120g de quinoa. <strong>Note :</strong> Consommer la moitié aujourd'hui et conserver le reste pour le déjeuner de demain." },
-                    d: { title: "Préparation : Omelette", content: "Faire revenir une poignée d'épinards frais dans une poêle antiadhésive. Verser 2 œufs battus dessus et cuire." }
+                    d: { title: "Préparation : Omelette", content: "Faire revenir une poignée d'épinards frais dans une poêle antiadhésive jusqu'à ce qu'ils soient bien cuits. Verser 2 œufs battus dessus et cuire." }
                 }},
                 { day: "Mardi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Yaourt grec 0% (150g)<br>• Fruits rouges (100g)<br>• 1 c.à.s de noix", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
-                    l: { t: "Déjeuner", c: "• Wok de poulet et légumes<br>• Un peu de quinoa (restes de lundi)", a: "Les saveurs de l'ail, du gingembre et de la sauce soja suffisent. Goûtez avant de saler." },
+                    l: { t: "Déjeuner", c: "• Poulet mijoté aux légumes doux<br>• Un peu de quinoa (restes de lundi)", a: "Les herbes de Provence parfument bien le plat. Goûtez avant de saler." },
                     s: { t: "Collation (si besoin)", c: "• 1 pomme" },
-                    d: { t: "Dîner", c: "• Soupe de légumes verts maison", a: "Une pincée de poivre noir au moment de servir." }
+                    d: { t: "Dîner", c: "• Velouté de courgette et épinards", a: "Une pincée de poivre noir au moment de servir." }
                 }, recipes: {
-                    l: { title: "Préparation : Wok (pour 2 repas)", content: "<strong>Ingrédients :</strong> 260g poulet en dés, 1 brocoli, 1 poivron, 2 c.à.c sauce soja faible en sel, ail, gingembre.<br><strong>Préparation :</strong> Faire sauter le poulet. Ajouter les légumes et cuire jusqu'à ce qu'ils soient tendres mais croquants. Déglacer avec la sauce soja. <strong>Note :</strong> Consommer la moitié aujourd'hui et conserver le reste pour le déjeuner de demain." },
-                    d: { title: "Préparation : Soupe", content: "<strong>Ingrédients :</strong> 1 courgette, 1/2 brocoli, 1 poignée d'épinards, 1/2 oignon, bouillon de légumes.<br><strong>Préparation :</strong> Cuire les légumes dans le bouillon 20 min, puis mixer." }
+                    l: { title: "Préparation : Poulet mijoté (pour 2 repas)", content: "<strong>Ingrédients :</strong> 260g poulet en dés, 2 carottes, 2 courgettes, herbes de Provence, ail.<br><strong>Préparation :</strong> Peler les légumes. Faire dorer le poulet. Ajouter les légumes en dés, l'ail et les herbes. Couvrir d'eau et laisser mijoter 30 min. <strong>Note :</strong> Consommer la moitié aujourd'hui et conserver le reste pour le déjeuner de demain." },
+                    d: { title: "Préparation : Velouté", content: "<strong>Ingrédients :</strong> 2 courgettes pelées, 1 poignée d'épinards, 1/2 oignon, bouillon de légumes.<br><strong>Préparation :</strong> Cuire les légumes dans le bouillon 20 min, puis mixer finement." }
                 }},
                 { day: "Mercredi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Œufs brouillés (2) à l'avocat", a: "Poivre et une pincée de piment d'Espelette sur les œufs." },
-                    l: { t: "Déjeuner", c: "• Restes du wok de poulet de mardi", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Restes du poulet mijoté de mardi", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
                     s: { t: "Collation (si besoin)", c: "• Yaourt grec 0% ou Skyr (150g)" },
-                    d: { t: "Dîner", c: "• Soupe de lentilles corail au curcuma", a: "Le curcuma et le cumin sont les stars. Goûtez avant de saler." }
+                    d: { t: "Dîner", c: "• Velouté de carottes au curcuma", a: "Le curcuma est la star. Goûtez avant de saler." }
                 }, recipes: {
                     p: { title: "Préparation : Oeufs brouillés", content: "Battre 2 oeufs et les cuire doucement dans une poêle antiadhésive. Servir avec 1/4 d'avocat en tranches." },
-                    d: { title: "Préparation : Soupe", content: "<strong>Ingrédients :</strong> 80g lentilles corail, 1/2 oignon, 1 carotte, 1 c.à.c curcuma, 1 c.à.c cumin, 400ml bouillon de légumes.<br><strong>Préparation :</strong> Faire revenir l'oignon et la carotte. Ajouter épices, lentilles et bouillon. Laisser mijoter 20 min puis mixer." }
+                    d: { title: "Préparation : Velouté", content: "<strong>Ingrédients :</strong> 3-4 carottes, 1/2 oignon, 1 c.à.c curcuma, 400ml bouillon de légumes.<br><strong>Préparation :</strong> Faire revenir l'oignon. Ajouter les carottes en rondelles, le curcuma et le bouillon. Laisser mijoter 25 min puis mixer." }
                 }},
                 { day: "Jeudi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Porridge anti-cholestérol", a: "Une pincée de cannelle est délicieuse et bénéfique." },
-                    l: { t: "Déjeuner", c: "• Filets de maquereau fumé (150g)<br>• Salade de carottes râpées", a: "Le maquereau est déjà salé. Un filet de jus de citron sur les carottes suffit." },
+                    l: { t: "Déjeuner", c: "• Filets de maquereau fumé (150g)<br>• Carottes cuites à la vapeur", a: "Le maquereau est déjà salé. Un filet de jus de citron sur les carottes suffit." },
                     s: { t: "Collation (si besoin)", c: "• 1 poire<br>• Une dizaine d'amandes" },
                     d: { t: "Dîner", c: "• Pavé de saumon (130g)<br>• Purée de carottes maison", a: "Poivre et aneth sur le saumon. Une pincée de muscade dans la purée." }
                 }, recipes: {
                     p: { title: "Recette : Porridge", content: "<strong>Ingrédients :</strong> 40g flocons d'avoine, 150ml lait d'amande, 1 c.à.s de graines de chia, 1/2 pomme en dés, quelques noix.<br><strong>Préparation :</strong> Cuire l'avoine avec le lait. Ajouter les graines de chia, la pomme et les noix avant de servir." },
-                    l: { title: "Préparation : Salade de carottes", content: "Râper 1 à 2 carottes et assaisonner avec du jus de citron, 1 c.à.c d'huile d'olive, sel et poivre." },
+                    l: { title: "Préparation : Carottes cuites", content: "Couper 1 à 2 carottes en rondelles et les cuire à la vapeur jusqu'à ce qu'elles soient tendres. Assaisonner avec du jus de citron." },
                     d: { title: "Préparation : Dîner", content: "<strong>Saumon :</strong> Cuire comme lundi.<br><strong>Purée :</strong> Cuire 300g de carottes à la vapeur, les écraser en purée avec 1 c.à.c d'huile d'olive et une pincée de muscade." }
                 }},
                 { day: "Vendredi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Yaourt grec 0% (150g)<br>• 1 pomme en dés<br>• 1 c.à.s de noix", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
-                    l: { t: "Déjeuner", c: "• Grande salade de quinoa<br>• Blanc de poulet (150g) émincé", a: "Vinaigrette maison (huile, vinaigre, moutarde). Assaisonnez le poulet avant de le griller." },
+                    l: { t: "Déjeuner", c: "• Quinoa aux dés de courgette cuite<br>• Blanc de poulet (150g) émincé", a: "Vinaigrette maison (huile, vinaigre, moutarde). Assaisonnez le poulet avant de le griller." },
                     s: { t: "Collation (si besoin)", c: "• 2 galettes de riz complet" },
-                    d: { t: "Dîner", c: "• Dahl de lentilles corail<br>• 2 c.à.s. de yaourt nature (50g)", a: "Les épices suffisent. Le yaourt nature apporte de la fraîcheur." }
+                    d: { t: "Dîner", c: "• Pavé de saumon<br>• Riz blanc et courgettes fondantes", a: "Le saumon est déjà savoureux. Un filet d'huile d'olive sur les courgettes." }
                 }, recipes: {
-                    l: { title: "Préparation : Salade de quinoa", content: "<strong>Ingrédients :</strong> Reste de quinoa, concombre en dés, tomates, persil, jus de citron, huile d'olive.<br><strong>Préparation :</strong> Mélanger tous les ingrédients avec le poulet grillé et émincé." },
-                    d: { title: "Recette : Dahl", content: "<strong>Ingrédients :</strong> 80g lentilles corail, 1/2 oignon, 1 carotte, 1 c.à.c curcuma, 1 c.à.c cumin, 400ml bouillon de légumes.<br><strong>Préparation :</strong> Faire revenir l'oignon et la carotte. Ajouter épices, lentilles et bouillon. Laisser mijoter 20 min puis mixer." }
+                    l: { title: "Préparation : Déjeuner", content: "<strong>Ingrédients :</strong> Reste de quinoa, 1/2 courgette pelée en dés, persil, jus de citron, huile d'olive.<br><strong>Préparation :</strong> Faire revenir les dés de courgette à la poêle. Mélanger tous les ingrédients avec le poulet grillé et émincé." },
+                    d: { title: "Recette : Dîner", content: "Cuire le pavé de saumon. Servir avec du riz blanc et des rondelles de courgette pelée, cuites à la vapeur jusqu'à ce qu'elles soient très tendres." }
                 }},
                 { day: "Samedi", meals: { 
-                    p: { t: "Petit-déjeuner", c: "• Smoothie vert", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
-                    l: { t: "Déjeuner", c: "• Repas plaisir maîtrisé : brochette de poulet<br>• Salade composée", a: "Assaisonnez le poulet avec paprika, ail, poivre avant de griller. Vinaigrette maison pour la salade." },
+                    p: { t: "Petit-déjeuner", c: "• Smoothie vert (tamisé)", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Repas plaisir : brochette de poulet<br>• Patate douce rôtie", a: "Assaisonnez le poulet avec paprika, ail, poivre avant de griller." },
                     s: { t: "Collation (si besoin)", c: "• 1 poignée de fruits rouges" },
-                    d: { t: "Dîner", c: "• Salade composée<br>• 1 œuf dur", a: "Vinaigrette maison (huile, vinaigre, moutarde)." }
+                    d: { t: "Dîner", c: "• Filet de poisson blanc<br>• Purée de carottes<br>• 1 œuf dur", a: "Un filet de jus de citron sur le poisson." }
                 }, recipes: {
-                    p: { title: "Recette : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients." },
-                    l: { title: "Préparation : Déjeuner", content: "<strong>Ingrédients :</strong> 130g de poulet, jeunes pousses, 1/2 avocat, tomates cerises, 1/4 concombre.<br><strong>Préparation :</strong> Griller le poulet en brochette (sans marinade industrielle). Servir avec la salade composée." },
-                    d: { title: "Préparation : Salade", content: "<strong>Ingrédients :</strong> Jeunes pousses, 1/2 avocat en dés, tomates cerises, 1/4 concombre, 1 oeuf dur.<br><strong>Vinaigrette :</strong> 1 c.à.c huile olive, vinaigre de cidre, moutarde. Mélanger le tout." }
+                    p: { title: "Recette : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients puis passer au tamis fin." },
+                    l: { title: "Préparation : Déjeuner", content: "<strong>Ingrédients :</strong> 130g de poulet, 1 patate douce.<br><strong>Préparation :</strong> Griller le poulet en brochette. Couper la patate douce en frites, les enrober d'1 c.à.c d'huile et rôtir au four 25 min à 200°C." },
+                    d: { title: "Préparation : Dîner", content: "Cuire un filet de poisson blanc (colin, cabillaud) à la vapeur. Servir avec une purée de carottes et un oeuf dur." }
                 }}
             ],
             semaine2: [
                 { day: "Dimanche", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Œufs brouillés (2) au curcuma", a: "Le curcuma et le poivre sont parfaits. Salez très légèrement." },
-                    l: { t: "Déjeuner", c: "• Blancs de poulet au citron (150g)<br>• Riz complet (60g cru)<br>• Légumes vapeur (200g)", a: "Le citron et le romarin suffisent pour le poulet. Un filet d'huile d'olive sur les légumes." },
+                    l: { t: "Déjeuner", c: "• Blancs de poulet au citron (150g)<br>• Riz blanc (60g cru)<br>• Carottes vapeur (200g)", a: "Le citron et le romarin suffisent pour le poulet. Un filet d'huile d'olive sur les carottes." },
                     s: { t: "Collation (si besoin)", c: "• 1 pomme<br>• Une dizaine d'amandes" },
                     d: { t: "Dîner", c: "• Bouillon de poulet maison<br>• 2 c.à.s. de yaourt nature (50g)", a: "Le bouillon est déjà savoureux. Goûtez avant de saler." }
                 }, recipes: {
@@ -365,56 +365,56 @@
                     p: { t: "Petit-déjeuner", c: "• Porridge (comme S1L1)<br>• Thé vert", a: "Une pincée de cannelle est délicieuse et bénéfique." },
                     l: { t: "Déjeuner", c: "• Steak de thon mi-cuit (150g)<br>• Poêlée de patates douces", a: "Juste du poivre sur le thon avant de griller. Le paprika sur les patates douces suffit." },
                     s: { t: "Collation (si besoin)", c: "• 1 poire<br>• Quelques noix" },
-                    d: { t: "Dîner", c: "• Filet de dinde (150g)<br>• Purée de chou-fleur à l'ail", a: "Assaisonnez la dinde avec des herbes de Provence avant cuisson." }
+                    d: { t: "Dîner", c: "• Filet de dinde (150g)<br>• Purée de patate douce à l'ail", a: "Assaisonnez la dinde avec des herbes de Provence avant cuisson." }
                 }, recipes: {
                     p: { title: "Recette : Porridge", content: "<strong>Ingrédients :</strong> 40g flocons d'avoine, 150ml lait d'amande, 1 c.à.s de graines de chia, 1/2 pomme en dés, quelques noix.<br><strong>Préparation :</strong> Cuire l'avoine avec le lait. Ajouter les graines de chia, la pomme et les noix avant de servir." },
                     l: { title: "Préparation : Déjeuner", content: "<strong>Thon :</strong> Griller le steak de thon 1-2 minutes de chaque côté dans une poêle chaude sans matière grasse.<br><strong>Poêlée :</strong> Couper 200g de patate douce en dés. Poêler avec 1 c.à.c d'huile d'olive, paprika, sel, poivre jusqu'à tendreté." },
-                    d: { title: "Recette : Purée de chou-fleur", content: "<strong>Ingrédients :</strong> 1/2 chou-fleur, 1 gousse d'ail, 1 c.à.c huile d'olive.<br><strong>Préparation :</strong> Cuire le chou-fleur et l'ail à la vapeur. Mixer avec l'huile d'olive, sel, poivre." }
+                    d: { title: "Recette : Purée de patate douce", content: "<strong>Ingrédients :</strong> 1 grosse patate douce, 1 gousse d'ail, 1 c.à.c huile d'olive.<br><strong>Préparation :</strong> Cuire la patate douce et l'ail à la vapeur. Mixer avec l'huile d'olive, sel, poivre." }
                 }},
                 { day: "Mardi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Yaourt grec 0% (150g)<br>• 1 poire en dés<br>• 1 c.à.s de graines de chia", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
-                    l: { t: "Déjeuner", c: "• Restes du poulet au citron de dimanche", a: "Le poulet est déjà parfumé. Un filet de jus de citron si vous le mangez en salade." },
+                    l: { t: "Déjeuner", c: "• Restes du poulet au citron de dimanche", a: "Le poulet est déjà parfumé. Un filet de jus de citron si vous le mangez froid." },
                     s: { t: "Collation (si besoin)", c: "• 1 pomme" },
-                    d: { t: "Dîner", c: "• Sauté de poulet aux noix de cajou<br>• Riz complet (50g cru)", a: "Les saveurs de l'ail, du gingembre et de la sauce soja suffisent. Goûtez avant de saler." }
+                    d: { t: "Dîner", c: "• Sauté de poulet aux légumes doux<br>• Riz blanc (50g cru)", a: "Les saveurs de l'ail, du gingembre et de la sauce soja suffisent. Goûtez avant de saler." }
                 }, recipes: {
-                    l: { title: "Préparation : Restes", content: "Utiliser le deuxième blanc de poulet rôti dimanche. Il peut être mangé froid en salade ou réchauffé doucement." },
-                    d: { title: "Recette : Sauté de poulet cajou (pour 2 repas)", content: "<strong>Ingrédients :</strong> 260g poulet, 2 poignées de noix de cajou, 1 poivron, 1 oignon, 2 c.à.c sauce soja faible en sel.<br><strong>Préparation :</strong> Faire dorer le poulet, ajouter les légumes puis les noix de cajou et la sauce soja. Servir avec le riz complet cuit. <strong>Note :</strong> Consommer la moitié ce soir et conserver le reste pour le déjeuner de demain." }
+                    l: { title: "Préparation : Restes", content: "Utiliser le deuxième blanc de poulet rôti dimanche. Il peut être mangé froid ou réchauffé doucement." },
+                    d: { title: "Recette : Sauté de poulet (pour 2 repas)", content: "<strong>Ingrédients :</strong> 260g poulet, 2 carottes, 1 courgette, 1 oignon, 2 c.à.c sauce soja faible en sel.<br><strong>Préparation :</strong> Peler les légumes. Faire dorer le poulet, ajouter les légumes en dés et la sauce soja. Servir avec le riz blanc cuit. <strong>Note :</strong> Consommer la moitié ce soir et conserver le reste pour le déjeuner de demain." }
                 }},
                 { day: "Mercredi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Œufs durs (x2)<br>• 1/2 avocat avec jus de citron", a: "Une pincée de sel et de poivre sur l'avocat." },
                     l: { t: "Déjeuner", c: "• Restes du sauté de poulet", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
                     s: { t: "Collation (si besoin)", c: "• Yaourt grec 0% ou Skyr (150g)" },
-                    d: { t: "Dîner", c: "• Salade de pois chiches<br>• Filets de sardines (120g)", a: "Le persil et le citron relèvent bien la salade. Les sardines sont déjà salées." }
+                    d: { t: "Dîner", c: "• Filets de sardines (120g)<br>• Riz blanc et fondue de tomates", a: "Les sardines sont déjà salées." }
                 }, recipes: {
-                    d: { title: "Recette : Salade de pois chiches", content: "<strong>Ingrédients :</strong> 1/2 boîte de pois chiches, 1/4 oignon rouge émincé, persil, jus de citron.<br><strong>Préparation :</strong> Rincer les pois chiches, mélanger avec les autres ingrédients. Servir avec les sardines." }
+                    d: { title: "Recette : Fondue de tomates", content: "<strong>Ingrédients :</strong> 2 tomates, 1/4 oignon rouge émincé, persil.<br><strong>Préparation :</strong> Peler et épépiner les tomates. Les couper en dés et les faire compoter à feu doux avec l'oignon. Servir avec le riz et les sardines." }
                 }},
                 { day: "Jeudi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Porridge (comme S1L1)", a: "Une pincée de cannelle est délicieuse et bénéfique." },
-                    l: { t: "Déjeuner", c: "• Omelette (2 œufs) aux champignons<br>• Salade verte", a: "Poivre et ail en poudre dans l'omelette. Vinaigrette maison pour la salade." },
+                    l: { t: "Déjeuner", c: "• Omelette (2 œufs) aux champignons<br>• Épinards cuits", a: "Poivre et ail en poudre dans l'omelette." },
                     s: { t: "Collation (si besoin)", c: "• 1 poire<br>• Une dizaine d'amandes" },
-                    d: { t: "Dîner", c: "• Gratin de courgettes et thon<br>• Salade verte", a: "Les herbes de Provence parfument le gratin. Vinaigrette pour la salade." }
+                    d: { t: "Dîner", c: "• Gratin de courgettes pelées et thon", a: "Les herbes de Provence parfument le gratin." }
                 }, recipes: {
                     p: { title: "Recette : Porridge", content: "<strong>Ingrédients :</strong> 40g flocons d'avoine, 150ml lait d'amande, 1 c.à.s de graines de chia, 1/2 pomme en dés, quelques noix.<br><strong>Préparation :</strong> Cuire l'avoine avec le lait. Ajouter les graines de chia, la pomme et les noix avant de servir." },
-                    l: { title: "Préparation : Omelette", content: "Faire revenir une poignée de champignons émincés dans une poêle antiadhésive. Verser 2 œufs battus dessus et cuire." },
-                    d: { title: "Recette : Gratin de courgettes (pour 2 repas)", content: "<strong>Ingrédients :</strong> 2 courgettes, 2 boîtes de thon au naturel, 2 œufs, 100ml lait d'amande, herbes de Provence.<br><strong>Préparation :</strong> Râper les courgettes. Mélanger avec le thon, les œufs battus et le lait. Assaisonner et cuire 25 min à 180°C. <strong>Note :</strong> Conserver la moitié pour le déjeuner de demain." }
+                    l: { title: "Préparation : Omelette", content: "Faire revenir une poignée de champignons émincés et d'épinards dans une poêle antiadhésive. Verser 2 œufs battus dessus et cuire." },
+                    d: { title: "Recette : Gratin de courgettes (pour 2 repas)", content: "<strong>Ingrédients :</strong> 2 courgettes, 2 boîtes de thon au naturel, 2 œufs, 100ml lait d'amande, herbes de Provence.<br><strong>Préparation :</strong> Peler et râper les courgettes. Mélanger avec le thon, les œufs battus et le lait. Assaisonner et cuire 25 min à 180°C. <strong>Note :</strong> Conserver la moitié pour le déjeuner de demain." }
                 }},
                 { day: "Vendredi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Yaourt grec 0% (150g)<br>• 1 pomme râpée<br>• Cannelle", a: "La cannelle suffit amplement." },
-                    l: { t: "Déjeuner", c: "• Salade composée avec restes de gratin", a: "Le gratin est déjà assaisonné. Une vinaigrette légère sur la salade." },
+                    l: { t: "Déjeuner", c: "• Restes de gratin de courgettes<br>• 2 tranches de jambon blanc", a: "Le gratin est déjà assaisonné." },
                     s: { t: "Collation (si besoin)", c: "• 2 galettes de riz complet" },
-                    d: { t: "Dîner", c: "• Soupe froide de concombre et avocat", a: "La menthe fraîche et le citron sont les saveurs principales. Goûtez avant de saler." }
+                    d: { t: "Dîner", c: "• Velouté de courgette chaud à la menthe", a: "La menthe fraîche et le citron sont les saveurs principales. Goûtez avant de saler." }
                 }, recipes: {
-                    d: { title: "Recette : Soupe froide", content: "<strong>Ingrédients :</strong> 1/2 concombre, 1/2 avocat, menthe fraîche, jus de citron, 150g de yaourt grec.<br><strong>Préparation :</strong> Mixer tous les ingrédients. Servir très frais." }
+                    d: { title: "Recette : Velouté chaud", content: "<strong>Ingrédients :</strong> 1 courgette pelée, 1/2 avocat, menthe fraîche, jus de citron, 150g de yaourt grec.<br><strong>Préparation :</strong> Cuire la courgette en dés dans un peu d'eau. Mixer avec les autres ingrédients. Servir chaud." }
                 }},
                 { day: "Samedi", meals: { 
-                    p: { t: "Petit-déjeuner", c: "• Smoothie (comme S1M3)", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
-                    l: { t: "Déjeuner", c: "• Repas plaisir maîtrisé : Poisson blanc grillé<br>• Ratatouille maison", a: "Un filet de jus de citron et du poivre sur le poisson. La ratatouille est déjà riche en saveurs." },
+                    p: { t: "Petit-déjeuner", c: "• Smoothie (tamisé)", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
+                    l: { t: "Déjeuner", c: "• Repas plaisir : Poisson blanc grillé<br>• Ratatouille douce maison", a: "Un filet de jus de citron et du poivre sur le poisson. La ratatouille est déjà riche en saveurs." },
                     s: { t: "Collation (si besoin)", c: "• 1 poignée de fruits rouges" },
-                    d: { t: "Dîner", c: "• Salade de lentilles vertes<br>• 2 tranches de blanc de dinde", a: "Vinaigrette maison pour la salade." }
+                    d: { t: "Dîner", c: "• Blanc de dinde<br>• Riz blanc et carottes cuites", a: "Herbes de Provence sur la dinde." }
                 }, recipes: {
-                    p: { title: "Recette : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients." },
-                    l: { title: "Préparation : Déjeuner", content: "Griller un filet de poisson blanc (colin, cabillaud). Servir avec une portion de ratatouille maison (légumes cuits longuement à feu doux avec 1 c.à.s d'huile d'olive)." },
-                    d: { title: "Préparation : Salade de lentilles", content: "<strong>Ingrédients :</strong> 80g de lentilles vertes (poids sec), 1/4 oignon rouge émincé, 1 petite carotte en dés, persil.<br><strong>Préparation :</strong> Cuire les lentilles dans un grand volume d'eau (20-25 min). Égoutter, laisser refroidir. Mélanger avec les autres ingrédients et une vinaigrette maison." }
+                    p: { title: "Recette : Smoothie", content: "<strong>Ingrédients :</strong> 1 poignée d'épinards frais, 1/2 banane, 150ml lait d'amande, 1 c.à.s graines de chia.<br><strong>Préparation :</strong> Mixer tous les ingrédients puis passer au tamis fin." },
+                    l: { title: "Préparation : Déjeuner", content: "Griller un filet de poisson blanc (colin, cabillaud). Servir avec une portion de ratatouille maison (légumes pelés, épépinés et cuits longuement à feu doux avec 1 c.à.s d'huile d'olive)." },
+                    d: { title: "Préparation : Dîner", content: "Griller 2 tranches de blanc de dinde. Servir avec du riz blanc et des carottes cuites à la vapeur." }
                 }}
             ]
         };
@@ -424,24 +424,23 @@
                 fruits_legumes: [
                     { item: "Banane (x1)"},
                     { item: "Avocat (x1)"},
-                    { item: "Épinards frais (~200g)"},
-                    { item: "Brocoli (1 tête), Poivron (x1), Courgette (x1)"},
-                    { item: "Carottes (x3), Oignon (x2), Céleri (1 branche)"},
-                    { item: "Salade verte (1 sachet)"},
-                    { item: "Ail (1 tête), Gingembre frais (1 petit morceau)"}
+                    { item: "Épinards frais ou surgelés (~300g)"},
+                    { item: "Carottes (~1kg)"},
+                    { item: "Courgettes (x4)"},
+                    { item: "Oignon (x2), Céleri (1 branche), Ail (1 tête)"}
                 ],
                 viandes_poissons: [
-                    { item: "Cuisse de poulet (x1)"},
+                    { item: "Cuisse de poulet (x1)<br><small><i>(Frigo: 1-2j max)</i></small>"},
                     { item: "Jambon blanc dégraissé (2 tranches)"},
-                    { item: "Filet de saumon (~130g)"},
-                    { item: "Blancs de poulet (~260g)"}
+                    { item: "Filet de saumon (~130g)<br><small><i>(Frigo: 1-2j max)</i></small>"},
+                    { item: "Blancs de poulet (~260g)<br><small><i>(Frigo: 1-2j max)</i></small>"}
                 ],
                 cremerie_epicerie: [
                     { item: "Œufs (boîte de 6)"},
                     { item: "Lait d'amande non sucré (1L)"},
-                    { item: "Flocons d'avoine, Quinoa, Lentilles corail"},
+                    { item: "Flocons d'avoine, Quinoa"},
                     { item: "Graines de chia"},
-                    { item: "Huile d'olive, Herbes, Épices (Curcuma, Cumin)"}
+                    { item: "Huile d'olive, Herbes, Épices (Curcuma)"}
                 ],
                 collations: [
                     { item: "Pommes (x2), Poire (x1)"},
@@ -454,19 +453,20 @@
             list2: { // Courses du Mercredi (pour Jeudi S1 → Samedi S1)
                 fruits_legumes: [
                     { item: "Pomme (x2), Banane (x1), Citron (x1)"},
-                    { item: "Carottes (~300g)"},
-                    { item: "Concombre (x1), Tomates (1 grappe), Persil (1 botte)"},
-                    { item: "Jeunes pousses (1 sachet)"},
-                    { item: "Avocat (x1)"}
+                    { item: "Carottes (~1kg)"},
+                    { item: "Courgette (x1), Persil (1 botte)"},
+                    { item: "Patate douce (x1)"}
                 ],
                 viandes_poissons: [
                     { item: "Filets de maquereau fumé (~150g)"},
-                    { item: "Filet de saumon (~130g)"},
-                    { item: "Blancs de poulet (~280g)"}
+                    { item: "Filet de saumon (~260g)<br><small><i>(Frigo: 1-2j max)</i></small>"},
+                    { item: "Blancs de poulet (~280g)<br><small><i>(Frigo: 1-2j max)</i></small>"},
+                    { item: "Poisson blanc (1 filet)<br><small><i>(Frigo: 1-2j max)</i></small>"}
                 ],
                 cremerie_epicerie: [
                     { item: "Œufs (boîte de 6)"},
-                    { item: "Yaourt grec 0% ou Skyr (~150g)"}
+                    { item: "Yaourt grec 0% ou Skyr (~150g)"},
+                    { item: "Riz blanc"}
                 ],
                 collations: [
                     { item: "Pomme (x1), Poire (x1)"},
@@ -479,20 +479,21 @@
                 fruits_legumes: [
                     { item: "Poire (x1), Citron (x1)"},
                     { item: "Avocat (x2)"},
-                    { item: "Patate douce (~200g), Chou-fleur (x1)"},
-                    { item: "Poivron (x1), Oignon (x1), Ail (1 tête), Carotte (x1)"},
-                    { item: "Oignon rouge (x1), Persil (1 botte)"}
+                    { item: "Patate douce (~1 grosse)"},
+                    { item: "Carottes (~500g), Courgette (x1)"},
+                    { item: "Oignon (x2), Ail (1 tête)"},
+                    { item: "Tomates (x2), Oignon rouge (x1), Persil (1 botte)"}
                 ],
                 viandes_poissons: [
-                    { item: "Poulet entier (Label Rouge ~1.2kg)<br><small><i>Utilisation : 2 blancs (Dim/Mar), carcasse (bouillon Dim)</i></small>"},
-                    { item: "Steak de thon frais (~150g)"},
-                    { item: "Filet de dinde (~150g)"},
+                    { item: "Poulet entier (Label Rouge ~1.2kg)<br><small><i>(Frigo: 1-2j max)</i></small>"},
+                    { item: "Steak de thon frais (~150g)<br><small><i>(Frigo: 1j max)</i></small>"},
+                    { item: "Filet de dinde (~150g)<br><small><i>(Frigo: 1-2j max)</i></small>"},
                     { item: "Sardines à l'huile (1 boîte)"}
                 ],
                 cremerie_epicerie: [
                     { item: "Œufs (boîte de 6)"},
-                    { item: "Riz complet, Noix de cajou"},
-                    { item: "Pois chiches (1 conserve)"}
+                    { item: "Riz blanc"},
+                    { item: "Sauce soja faible en sel"}
                 ],
                 collations: [
                     { item: "Pomme (x2), Poire (x1)"},
@@ -503,23 +504,22 @@
             },
             list4: { // Courses du Mercredi (pour Jeudi S2 → Samedi S2)
                 fruits_legumes: [
-                    { item: "Pomme (x1), Concombre (x1)"},
+                    { item: "Pomme (x1), Citron (x1)"},
                     { item: "Avocat (x1), Menthe fraîche (1 botte)"},
-                    { item: "Champignons (~150g)"},
-                    { item: "Courgette (x2)"},
-                    { item: "Légumes pour ratatouille (1 courgette, 1 aubergine, 1 poivron, 1 tomate, 1 oignon)"},
-                    { item: "Jeunes pousses (salade, 1 sachet)"},
-                    { item: "Carotte (1 petite), Oignon rouge (1/4), Persil (quelques brins)"}
+                    { item: "Champignons (~150g), Épinards frais ou surgelés (1 sachet)"},
+                    { item: "Courgettes (x3)"},
+                    { item: "Légumes pour ratatouille (1 courgette, 1 aubergine, 1 tomate, 1 oignon)"}
                 ],
                 viandes_poissons: [
                     { item: "Thon au naturel (2 boîtes)"},
-                    { item: "Poisson blanc (colin/cabillaud, 1 filet ~150g)"},
-                    { item: "Blanc de dinde (2 tranches)"}
+                    { item: "Poisson blanc (colin/cabillaud, 1 filet ~150g)<br><small><i>(Frigo: 1-2j max)</i></small>"},
+                    { item: "Blanc de dinde (2 tranches)<br><small><i>(Frigo: 1-2j max)</i></small>"},
+                    { item: "Jambon blanc (2 tranches)"}
                 ],
                 cremerie_epicerie: [
                     { item: "Œufs (boîte de 6)"},
                     { item: "Yaourt grec 0% ou Skyr (~300g)"},
-                    { item: "Lentilles vertes (1 conserve ou ~100g sèches)"}
+                    { item: "Riz blanc"}
                 ],
                 collations: [
                     { item: "Poire (x1)"},
@@ -531,79 +531,32 @@
         };
 
         const faqData = [
-            { q: "L'application ne s'affiche pas correctement quand je l'ouvre depuis mon ordinateur.", a: "C'est un comportement normal lié à la sécurité des navigateurs. Pour que toutes les fonctionnalités (comme la sauvegarde du poids) marchent, il faut utiliser l'application dans un environnement web sécurisé, comme celui fourni par le lien Gemini. La version actuelle est conçue pour fonctionner parfaitement dans cet environnement." },
+            { q: "Ce programme est-il adapté en cas de maladie inflammatoire de l'intestin (MICI) comme la RCH ?", a: "Oui, cette version du programme a été spécifiquement modifiée pour être mieux tolérée en cas de RCH en rémission. Elle élimine les aliments crus, les légumineuses, et les légumes riches en fibres insolubles. Les légumes sont proposés cuits, pelés, et souvent mixés. Cependant, la tolérance reste individuelle. **Il est impératif de suivre les recommandations de votre médecin et/ou diététicien.**" },
+            { q: "Puis-je utiliser des légumes surgelés au lieu de frais ?", a: "Oui, absolument ! C'est une excellente alternative. Les légumes surgelés 'nature' (sans sauce, ni crème) conservent très bien leurs nutriments et sont très pratiques. Assurez-vous simplement de les cuire de la même manière que la version fraîche (par exemple, des épinards surgelés cuits à la place des épinards frais cuits)." },
+            { q: "Pourquoi y a-t-il une note '(Frigo: 1-2j max)' sur certaines viandes/poissons ?", a: "Cette note est un rappel de sécurité alimentaire. Elle concerne les produits frais qui sont planifiés pour être consommés plus de 24h après le jour des courses. Pour garantir leur fraîcheur, vous avez deux options : 1) Les congeler dès votre retour des courses, ou 2) Adapter le planning et les consommer dans les 1 à 2 jours suivant l'achat." },
+            { q: "Pourquoi privilégier les légumes cuits et pelés ?", a: "La cuisson ramollit les fibres des légumes, les rendant beaucoup plus faciles à digérer. Peler les légumes (comme les courgettes, tomates, poivrons) et enlever les pépins permet de retirer la majorité des fibres insolubles, qui sont les plus irritantes pour un intestin sensible." },
+            { q: "Puis-je manger du riz complet ou du quinoa ?", a: "En période de sensibilité, le riz blanc est souvent mieux toléré car il contient moins de fibres. Le quinoa peut être essayé en petite quantité pour tester votre tolérance personnelle. Évitez le riz complet si vous êtes en phase fragile." },
             { q: "Que penser des programmes de repas livrés comme 'Comme J'aime' ?", a: "Ces programmes peuvent faire perdre du poids par la facilité (calories contrôlées), mais ils sont moins intéressants sur le plan nutritionnel (plats stérilisés) et surtout, ils ne vous apprennent pas à cuisiner sainement. L'approche 'fait maison' est bien meilleure pour votre santé à long terme et pour construire des habitudes durables." },
-            { q: "Comment poêler les patates douces pour qu'elles soient bien cuites ?", a: "La meilleure méthode est de combiner deux chaleurs : commencez à feu moyen-vif pour les dorer, puis baissez à feu moyen-doux et couvrez pour qu'elles cuisent à cœur sans brûler." },
-            { q: "Comment assaisonner mes plats ?", a: "La meilleure approche est d'utiliser généreusement poivre, ail en poudre, herbes (Provence, persil...) et épices (paprika, curcuma). Utilisez le sel avec modération. Pour les salades, la vinaigrette maison (1 c.à.c huile d'olive + 1 c.à.c vinaigre + 1 c.à.c moutarde) est parfaite." },
+            { q: "Comment assaisonner mes plats ?", a: "La meilleure approche est d'utiliser généreusement poivre, ail en poudre, herbes (Provence, persil...) et épices (paprika, curcuma). Utilisez le sel avec modération." },
             { q: "Que faire des légumes du bouillon ? Dois-je les jeter ?", a: "Le but principal est de boire le bouillon qui est riche en saveurs et nutriments. Cependant, pour ne pas gaspiller, vous pouvez tout à fait mixer les légumes cuits avec un peu de bouillon pour en faire un potage léger à consommer en plus du bouillon clair." },
-            { q: "Comment assaisonner mon poulet grillé ?", a: "Surtout, ne le cuisez pas nature ! Avant de le griller, saupoudrez-le généreusement de poivre, d'une pincée de sel, d'herbes de Provence, et d'ail en poudre ou de paprika si vous aimez. Cela donne beaucoup de goût sans ajouter de graisses." },
-            { q: "J'ai faim après le repas, puis-je manger des biscuits 'santé' ?", a: "Même les biscuits avec un bon Nutri-Score contiennent souvent du sucre et de la farine raffinée. Il est préférable de les éviter. À la place, buvez un thé vert, attendez 15 minutes, et si la faim persiste, prenez une petite poignée de noix ou d'amandes. C'est bien plus efficace pour la satiété et meilleur pour vos objectifs." },
-            { q: "Comment fonctionne le système de courses sur 2 jours ?", a: "C'est un cycle continu sur 2 semaines. Par exemple, les courses du Samedi de la Semaine 1 couvrent les repas du Dimanche (S1), Lundi (S2), Mardi (S2) et Mercredi (S2). Cela garantit la fraîcheur des produits tout en suivant la rotation des menus." },
             { q: "Comment gérer la cuisson du poulet entier du Dimanche S2 ?", a: "L'idée est de rôtir le poulet entier le dimanche midi. Vous utilisez un blanc de poulet pour ce repas, le deuxième blanc pour le repas du mardi, et la carcasse pour faire le bouillon du dimanche soir. Le reste (cuisses, ailes) peut être partagé pour éviter le gaspillage." },
-            { q: "Qu'est-ce qu'un 'bouillon de poulet maison' ?", a: "C'est un bouillon fait en mijotant une carcasse de poulet (ou un morceau de poulet) avec des légumes (carotte, oignon...). C'est bien meilleur pour la santé que les cubes industriels car il ne contient ni sel excessif, ni additifs." },
-            { q: "Mon vinaigre de cidre est vieux et a un dépôt, puis-je l'utiliser ?", a: "Oui, sans aucun problème ! Le vinaigre ne se périme pas. Le dépôt est la \"mère de vinaigre\", un signe de qualité naturelle. Vous pouvez aussi utiliser du vinaigre de vin rouge comme alternative saine." },
-            { q: "Puis-je utiliser du vinaigre balsamique pour mes vinaigrettes ?", a: "Oui, mais avec modération. Le vinaigre balsamique contient des sucres naturels du raisin. Pour un usage quotidien, privilégiez le vinaigre de cidre ou de vin, et gardez le balsamique pour varier les plaisirs en plus petite quantité." },
-            { q: "Que faire si j'ai très faim entre les repas ?", a: "C'est normal au début ! Voici un plan d'action :<br><ol class='list-decimal list-inside pl-4 mt-2'><li><strong>Buvez un grand verre d'eau.</strong> Parfois, on confond la soif et la faim.</li><li><strong>Prenez une boisson chaude</strong> comme un thé vert ou une tisane (sans sucre).</li><li><strong>Attendez 15 minutes.</strong> L'envie passe souvent d'elle-même.</li><li>Si la faim est toujours là, prenez une <strong>collation saine</strong> prévue dans le programme (un fruit, un yaourt, quelques noix).</li><li><strong>Changez-vous les idées :</strong> allez marcher 5 minutes, passez un coup de fil...</li></ol>" },
-            { q: "Puis-je utiliser du riz Basmati/Thaï au lieu du riz complet ?", a: "Oui, pour commencer, utilisez ce que vous avez. Le riz complet est cependant meilleur sur le long terme car ses fibres aident à la satiété, au cholestérol et à réguler la glycémie. Pensez à en acheter lors de vos prochaines courses." },
-            { q: "Comment griller le poulet de façon saine ?", a: "Les trois meilleures options, toujours sans ajouter de matière grasse, sont :<br><ol class='list-decimal list-inside pl-4 mt-2'><li><strong>Sur un petit grill de contact :</strong> Idéal pour une cuisson rapide et saine.</li><li><strong>Au four :</strong> Parfait pour cuire plusieurs portions en même temps (\"meal prep\").</li><li><strong>À la poêle :</strong> Une bonne solution si votre poêle est bien antiadhésive.</li></ol>" },
-            { q: "Les sardines en conserve que j'ai trouvées sont-elles correctes ?", a: "Oui, les sardines entières à l'huile d'olive vierge extra sont un excellent choix. Elles sont riches en Oméga-3 et en calcium. Il suffit de bien les égoutter avant de les consommer." },
-            { q: "Pourquoi un plan sur 2 semaines et pas sur 1 seule ?", a: "Une rotation sur 2 semaines est plus efficace pour la richesse nutritionnelle (plus de vitamines/minéraux), pour éviter la lassitude, pour la santé de votre microbiote intestinal et pour vous aider à apprendre plus de recettes saines." },
-            { q: "Puis-je boire du thé vert le soir ?", a: "Il est préférable d'éviter après 17h. Le thé vert contient de la théine (caféine) qui peut perturber le sommeil. Le soir, privilégiez des boissons sans théine comme l'eau chaude avec du citron/gingembre, ou des tisanes (verveine, camomille)." },
-            { q: "Puis-je utiliser des produits surgelés (saumon, poulet...) ?", a: "Oui, absolument ! Les produits surgelés \"nature\" (sans sauce, ni panure) sont parfaits. Ils conservent très bien leurs nutriments, sont pratiques et souvent plus économiques." },
-            { q: "Puis-je remplacer la dinde par du poulet ?", a: "Oui, sans aucun problème. Ce sont deux viandes blanches maigres très similaires. Le plus important est de choisir celle que vous préférez pour suivre le programme facilement." },
-            { q: "Comment assaisonner mes salades ?", a: "Toujours avec une vinaigrette maison saine : 1 c.à.c d'huile d'olive vierge extra, du vinaigre de cidre ou du jus de citron, et un peu de moutarde si vous aimez. C'est parfait pour la santé !" },
-            { q: "J'ai des graines de chia, est-ce que c'est bien ?", a: "C'est un grand OUI ! Les graines de chia sont excellentes (riches en fibres, oméga-3). Vous pouvez les utiliser dans les porridges, smoothies et yaourts." },
-            { q: "Les oignons frits sont-ils autorisés ?", a: "Non, il est préférable de les éviter car ils sont trop gras et salés. L'alternative parfaite est d'utiliser de l'oignon rouge cru, coupé en fines lamelles dans vos salades." }
         ];
 
         const changelogData = [
+            { version: "10.0", date: "15 Août 2025", changes: ["Ajout de conseils de conservation pour les viandes et poissons frais dans les listes de courses.", "Clarification sur l'utilisation des produits surgelés dans la FAQ."] },
+            { version: "9.0", date: "15 Août 2025", changes: ["Adaptation complète du programme pour la rectocolite hémorragique (RCH).", "Remplacement des aliments crus, des légumineuses et des légumes irritants par des alternatives douces et cuites.", "Mise à jour complète des recettes et des listes de courses pour refléter ces changements.", "Ajout d'une section dédiée à la RCH dans la FAQ."] },
             { version: "8.0", date: "14 Août 2025", changes: ["Correction des incohérences entre les menus et les listes de courses.", "Audit complet et synchronisation de tous les ingrédients nécessaires pour les 2 semaines."] },
-            { version: "7.9", date: "13 Août 2025", changes: ["Correction du journal des modifications pour refléter les dates et versions correctes."] },
-            { version: "7.8", date: "13 Août 2025", changes: ["Correction du journal des modifications pour refléter les dates et versions correctes."] },
-            { version: "7.7", date: "06 Août 2025", changes: ["Correction du journal des modifications pour refléter les dates et versions correctes."] },
-            { version: "7.6", date: "06 Août 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
-            { version: "7.5", date: "06 Août 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
-            { version: "7.4", date: "06 Août 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
-            { version: "7.3", date: "06 Août 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
-            { version: "7.2", date: "06 Août 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
-            { version: "7.1", date: "06 Août 2025", changes: ["Correction du journal des modifications pour refléter les dates et versions correctes."] },
-            { version: "7.0", date: "06 Août 2025", changes: ["Ajout d'un graphique 'Radar des Principes Santé' sur la page Vue d'Ensemble.", "Enrichissement des détails sur les aliments anti-inflammatoires."] },
-            { version: "6.11", date: "31 Juillet 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
-            { version: "6.10", date: "31 Juillet 2025", changes: ["Correction finale des listes de courses pour une synchronisation parfaite avec les menus.", "Ajout de la recette et des quantités précises pour la salade de lentilles.", "Mise à jour de la FAQ avec la question sur le thon frais."] },
-            { version: "6.9", date: "31 Juillet 2025", changes: ["Ajout de la section 'Collation' dans le planning journalier.", "Mise à jour des listes de courses et de la FAQ en conséquence."] },
-            { version: "6.8", date: "31 Juillet 2025", changes: ["Ajout de la section 'Collation' dans le planning journalier.", "Mise à jour des listes de courses et de la FAQ en conséquence."] },
-            { version: "6.7", date: "31 Juillet 2025", changes: ["Ajout de la section 'Collation' dans le planning journalier.", "Mise à jour des listes de courses et de la FAQ en conséquence."] },
-            { version: "6.4", date: "31 Juillet 2025", changes: ["Clarification des recettes prévues pour deux repas (ex: gratin de courgettes) avec des quantités doublées.", "Audit complet et correction de toutes les listes de courses pour une synchronisation parfaite.", "Mise à jour de la FAQ avec les explications sur les repas à préparer en double."] },
-            { version: "6.3", date: "31 Juillet 2025", changes: ["Ajout de la section 'Collation' dans le planning journalier.", "Mise à jour des listes de courses et de la FAQ en conséquence."] },
-            { version: "6.2", date: "31 Juillet 2025", changes: ["Ajout de la recette de la salade de lentilles et correction de la liste de courses correspondante."] },
-            { version: "6.0", date: "31 Juillet 2025", changes: ["Ajout d'un graphique 'Radar des Principes Santé' sur la page Vue d'Ensemble.", "Enrichissement des détails sur les aliments anti-inflammatoires."] },
-            { version: "5.9", date: "30 Juillet 2025", changes: ["Mise à jour des listes de courses pour inclure le Skyr comme alternative au yaourt grec.", "Ajout d'une question à la FAQ pour clarifier la différence entre le yaourt grec et le Skyr."] },
-            { version: "5.8", date: "30 Juillet 2025", changes: ["Correction finale des listes de courses pour une synchronisation parfaite avec les menus.", "Ajout de la recette et des quantités précises pour la salade de lentilles.", "Mise à jour de la FAQ avec la question sur le thon frais."] },
-            { version: "5.7", date: "29 Juillet 2025", changes: ["Correction d'un bug persistant sur la fonctionnalité de suivi du poids en supprimant temporairement la fonctionnalité pour garantir la stabilité de l'application.", "Nettoyage du code et des dépendances associées."] },
-            { version: "5.6", date: "29 Juillet 2025", changes: ["Correction du chargement des librairies JavaScript pour assurer la compatibilité en local.", "Ajout d'une question à la FAQ expliquant pourquoi l'application fonctionne mieux via le lien Gemini que depuis un fichier local."] },
-            { version: "5.3", date: "29 Juillet 2025", changes: ["Ajout de la section \"Astuces anti-gaspillage\" en bas de page.", "Mise à jour de la FAQ avec les dernières questions."] },
-            { version: "5.2", date: "29 Juillet 2025", changes: ["Ajout de la fonctionnalité de suivi du poids avec graphique et sauvegarde automatique des données.", "Création d'un nouvel onglet 'Suivi du Poids'.", "Mise à jour de la FAQ avec les explications sur le suivi du poids."] },
-            { version: "5.0", date: "28 Juillet 2025", changes: ["Ajout de la question sur les plats préparés type 'Comme J'aime' à la FAQ."] },
-            { version: "4.9", date: "28 Juillet 2025", changes: ["Ajout de la section \"Astuces anti-gaspillage\" en bas de page.", "Mise à jour de la FAQ avec les dernières questions."] },
-            { version: "4.8", date: "27 Juillet 2025", changes: ["Ajout d'une section \"Assaisonnement conseillé\" pour chaque plat.", "Vérification complète de la cohérence entre les recettes et les listes de courses.", "Mise à jour de la FAQ avec les dernières questions."] },
-            { version: "4.3", date: "27 Juillet 2025", changes: ["Ajout d'un onglet 'Lexique' pour les termes culinaires.", "Déplacement des onglets 'FAQ' et 'Journal' vers des liens discrets en bas de page pour épurer l'interface."] },
-            { version: "4.2", date: "27 Juillet 2025", changes: ["Correction des recettes pour supprimer les références croisées et ajout des ingrédients manquants aux listes de courses.", "Mise à jour de la FAQ avec la clarification sur la logique de rotation des courses.", "Intégration de la cuisson du poulet entier dans le planning et les listes de courses."] },
-            { version: "4.0", date: "27 Juillet 2025", changes: ["Refonte complète des listes de courses pour un cycle de rotation sur 2 semaines (achats le Samedi et le Mercredi).", "Optimisation des menus pour garantir la fraîcheur des produits périssables après chaque jour de courses."] },
-            { version: "3.5", date: "25 Juillet 2025", changes: ["Ajout d'une section à la FAQ sur la gestion des fringales."] },
-            { version: "3.4", date: "25 Juillet 2025", changes: ["Ajout de l'onglet \"FAQ\" pour centraliser les questions et réponses."] },
-            { version: "3.3", date: "25 Juillet 2025", changes: ["Amélioration du programme d'exercices pour mieux cibler les cuisses, abdominaux, pectoraux et bras.", "Ajout d'exercices spécifiques (Chaise au mur, Crunchs inversés) tout en protégeant le dos.", "Intégration d'une note de précaution pour les douleurs au dos et au cou."] },
-            { version: "3.2", date: "25 Juillet 2025", changes: ["Intégration des graines de chia dans les recettes et listes de courses.", "Correction de l'incohérence \"restes de poulet\" pour plus de clarté.", "Ajout du \"Journal des Modifications\"."] },
-            { version: "3.0", date: "25 Juillet 2025", changes: ["Refonte complète des menus pour cibler le cholestérol, le foie et l'inflammation.", "Ajout des recettes détaillées directement dans le planning journalier.", "Amélioration des listes de courses avec cases à cocher et boutons de réinitialisation."] },
-            { version: "2.0", date: "24 Juillet 2025", changes: ["Ajout de l'onglet et des listes de courses détaillées.", "Inclusion des estimations de prix et des budgets hebdomadaires.", "Ajout des quantités précises pour chaque article."] },
-            { version: "1.0", date: "24 Juillet 2025", changes: ["Création initiale de l'application avec planning alimentaire et d'exercices."] }
         ];
         
         const lexiqueData = [
             { term: "Badigeonner", definition: "Appliquer une substance (huile, marinade) sur un aliment avec un pinceau de cuisine pour l'enduire uniformément." },
+            { term: "Compoter", definition: "Cuire des fruits ou des légumes à feu doux jusqu'à ce qu'ils soient très tendres et forment une sorte de purée épaisse." },
             { term: "Déglacer", definition: "Verser un liquide (eau, bouillon, vinaigre) dans une poêle chaude pour dissoudre les sucs de cuisson collés au fond et créer une base de sauce savoureuse." },
             { term: "Émincer", definition: "Couper un aliment (oignon, champignons, etc.) en tranches très fines." },
             { term: "Faire revenir / Rissoler", definition: "Cuire un aliment à feu vif dans un peu de matière grasse jusqu'à ce qu'il soit bien doré et coloré en surface." },
-            { term: "Mijoter", definition: "Cuire un plat lentement, à feu très doux et généralement à couvert, pour que les saveurs se mélangent et que les viandes s'attendrissent." }
+            { term: "Mijoter", definition: "Cuire un plat lentement, à feu très doux et généralement à couvert, pour que les saveurs se mélangent et que les viandes s'attendrissent." },
+            { term: "Peler / Monder", definition: "Retirer la peau d'un légume ou d'un fruit. Pour les tomates (monder), on les plonge quelques secondes dans l'eau bouillante pour que la peau s'enlève facilement." },
+            { term: "Tamis", definition: "Passoire à mailles très fines, utilisée pour filtrer un liquide (soupe, smoothie) afin d'en retirer les petits morceaux solides (graines, fibres)." }
         ];
 
         const antiWasteData = [
