@@ -316,10 +316,10 @@
                     p: { t: "Petit-déjeuner", c: "• Œufs brouillés (2) à l'avocat", a: "Poivre et une pincée de piment d'Espelette sur les œufs." },
                     l: { t: "Déjeuner", c: "• Restes du poulet mijoté de mardi", a: "Aucun assaisonnement supplémentaire n'est nécessaire." },
                     s: { t: "Collation (si besoin)", c: "• Yaourt grec 0% ou Skyr (150g)" },
-                    d: { t: "Dîner", c: "• Velouté de carottes au curcuma", a: "Le curcuma est la star. Goûtez avant de saler." }
+                    d: { t: "Dîner", c: "• Poêlée express de légumes doux<br>• 2 tranches de jambon blanc", a: "Herbes de Provence, ail en poudre. Le jambon est déjà salé, goûtez avant d'ajouter du sel." }
                 }, recipes: {
                     p: { title: "Préparation : Oeufs brouillés", content: "Battre 2 oeufs et les cuire doucement dans une poêle antiadhésive. Servir avec 1/4 d'avocat en tranches." },
-                    d: { title: "Préparation : Velouté", content: "<strong>Ingrédients :</strong> 3-4 carottes, 1/2 oignon, 1 c.à.c curcuma, 400ml bouillon de légumes.<br><strong>Préparation :</strong> Faire revenir l'oignon. Ajouter les carottes en rondelles, le curcuma et le bouillon. Laisser mijoter 25 min puis mixer." }
+                    d: { title: "Préparation : Poêlée express", content: "<strong>Ingrédients :</strong> 2 carottes, 1 courgette, 2 tranches de jambon, ail.<br><strong>Préparation :</strong> Peler et couper les légumes en petits dés. Les faire revenir dans une poêle avec un filet d'huile d'olive jusqu'à ce qu'ils soient très tendres (ajouter un fond d'eau et couvrir si besoin). Couper le jambon en lanières et l'ajouter à la fin pour le réchauffer." }
                 }},
                 { day: "Jeudi", meals: { 
                     p: { t: "Petit-déjeuner", c: "• Porridge anti-cholestérol", a: "Une pincée de cannelle est délicieuse et bénéfique." },
@@ -431,7 +431,7 @@
                 ],
                 viandes_poissons: [
                     { item: "Cuisse de poulet (x1)<br><small><i>(Frigo: 1-2j max)</i></small>"},
-                    { item: "Jambon blanc dégraissé (2 tranches)"},
+                    { item: "Jambon blanc dégraissé (4 tranches)"},
                     { item: "Filet de saumon (~130g)<br><small><i>(Frigo: 1-2j max)</i></small>"},
                     { item: "Blancs de poulet (~260g)<br><small><i>(Frigo: 1-2j max)</i></small>"}
                 ],
@@ -440,7 +440,7 @@
                     { item: "Lait d'amande non sucré (1L)"},
                     { item: "Flocons d'avoine, Quinoa"},
                     { item: "Graines de chia"},
-                    { item: "Huile d'olive, Herbes, Épices (Curcuma)"}
+                    { item: "Huile d'olive, Herbes"}
                 ],
                 collations: [
                     { item: "Pommes (x2), Poire (x1)"},
@@ -543,6 +543,7 @@
         ];
 
         const changelogData = [
+            { version: "11.0", date: "20 Août 2025", changes: ["Remplacement du 'Velouté de carottes' du Mercredi S1 par une 'Poêlée express de légumes doux au jambon' pour un repas plus simple et rapide.", "Mise à jour de la liste de courses correspondante."] },
             { version: "10.0", date: "15 Août 2025", changes: ["Ajout de conseils de conservation pour les viandes et poissons frais dans les listes de courses.", "Clarification sur l'utilisation des produits surgelés dans la FAQ."] },
             { version: "9.0", date: "15 Août 2025", changes: ["Adaptation complète du programme pour la rectocolite hémorragique (RCH).", "Remplacement des aliments crus, des légumineuses et des légumes irritants par des alternatives douces et cuites.", "Mise à jour complète des recettes et des listes de courses pour refléter ces changements.", "Ajout d'une section dédiée à la RCH dans la FAQ."] },
             { version: "8.0", date: "14 Août 2025", changes: ["Correction des incohérences entre les menus et les listes de courses.", "Audit complet et synchronisation de tous les ingrédients nécessaires pour les 2 semaines."] },
